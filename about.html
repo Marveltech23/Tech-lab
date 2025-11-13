@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techfield - Navigational Tools for Innovators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 min-h-screen">
+    <!-- Navigation Bar Include Section -->
+    <div id="navbar-container"></div>
+
+    <div class="container mx-auto px-4 py-12 md:py-20">
+        <!-- Hero Section -->
+        <div class="text-center max-w-4xl mx-auto mb-16">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                Techfield is building navigational tools for underrepresented founders and innovators in emerging markets.
+            </h1>
+            <p class="text-base md:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Be part of Techfield today and expand your horizons and tap into a world of global venture opportunities
+            </p>
+            <button class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-3 rounded-lg inline-flex items-center gap-2 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Get Started
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Images Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto mb-16">
+            <!-- Left Image -->
+            <div class="rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" 
+                     alt="Team collaboration" 
+                     class="w-full h-64 md:h-80 lg:h-96 object-cover">
+            </div>
+            
+            <!-- Right Image -->
+            <div class="rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop" 
+                     alt="Team celebration" 
+                     class="w-full h-64 md:h-80 lg:h-96 object-cover">
+            </div>
+        </div>
+
+        <!-- Who We Are Section -->
+        <div class="max-w-4xl mx-auto mb-20">
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg p-8 md:p-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                    Who We Are
+                </h2>
+                <div class="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
+                    <p>
+At Marvab Technology, we believe that every business deserves more than just an online 
+presence  it deserves a digital infrastructure built for growth.                    </p>
+                    <p>
+We are a full-service technology and digital solutions company dedicated to helping businesses: 
+<ol class="list-disc list-inside">
+    
+    <li>Sell more with proven systems.</li>
+    <li>Build a strong, professional brand identity.</li>
+    <li>Establish a powerful digital presence that attracts and retains customers.</li>
+</ol>
+
+                    </p>
+                    <p>
+From branding to marketing, website development to custom software, we don’t just give 
+you tools  we build the foundation that helps your business thrive in today’s competitive digital 
+world.                     </p>
+                </div>
+            </div>
+        </div>
+
+         <!-- What We Do Section -->
+        <div class="max-w-7xl mx-auto mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                    What We Do
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    We provide an all-in-one digital solution that covers every area your business needs to grow.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-emerald-500">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-palette text-emerald-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Branding & Identity</h3>
+                    <p class="text-gray-600">Professional logos, brand kits, and strategies that make your business unforgettable.</p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-blue-500">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-share-alt text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Social Media Management</h3>
+                    <p class="text-gray-600">Grow your audience and drive engagement on the platforms that matter.</p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-purple-500">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Digital Marketing</h3>
+                    <p class="text-gray-600">Smart campaigns that attract leads and turn them into paying customers.</p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-pink-500">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-pen-fancy text-pink-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Content Creation</h3>
+                    <p class="text-gray-600">Graphics, videos, and written content that connect with your audience.</p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-orange-500">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-laptop-code text-orange-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Website & E-Commerce</h3>
+                    <p class="text-gray-600">Professional websites and online stores built to convert visitors into buyers.</p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-teal-500">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-filter text-teal-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Sales Funnel Design</h3>
+                    <p class="text-gray-600">Streamlined customer journeys that maximize sales.</p>
+                </div>
+
+                <!-- Service Card 7 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-indigo-500">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mobile App Development</h3>
+                    <p class="text-gray-600">Engaging apps that bring your brand closer to your customers.</p>
+                </div>
+
+                <!-- Service Card 8 -->
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-red-500">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-cogs text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Custom Software Solutions</h3>
+                    <p class="text-gray-600">Tailored systems built to match your business operations.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+    <!-- Footer Include Section -->
+    <!-- Method 1: Using JavaScript fetch (works for external HTML files) -->
+    <div id="footer-container"></div>
+
+    <!-- Method 2: Using iframe (alternative method) -->
+    <!-- <iframe src="footer.html" class="w-full border-0" id="footer-iframe" onload="resizeIframe(this)"></iframe> -->
+
+    <script>
+        // Load Navigation Bar
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+                // Initialize mobile menu functionality after navbar loads
+                initializeMobileMenu();
+            })
+            .catch(error => console.log('Navbar not found'));
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.log('Footer not found'));
+
+        // Mobile Menu Functionality
+        function initializeMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const sidebar = document.getElementById('mobile-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            }
+
+            if (closeSidebarBtn) {
+                closeSidebarBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+        }
+
+        // Method 2: Resize iframe function (if using iframe method)
+        function resizeIframe(iframe) {
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+    </script>
+
+    <!-- Decorative Elements -->
+    <div class="absolute top-1/4 right-10 w-3 h-3 bg-emerald-400 rounded-full opacity-60 hidden lg:block"></div>
+    <div class="absolute bottom-1/4 left-10 w-2 h-2 bg-teal-400 rounded-full opacity-60 hidden lg:block"></div>
+</body>
+</html>
