@@ -1,110 +1,220 @@
-<!-- Navbar -->
-<header class="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
-  <div class="flex justify-between items-center px-6 md:px-16 py-6">
-    <!-- Logo -->
-    <div class="flex items-center">
-      <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" class="w-25 h-24 mr-0.5" />
-      <span class="text-xl font-bold">Marvab Tech</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reusable Navbar - navbar.html</title>
+    <style>
+        /* 
+        ==============================================
+        NAVBAR.HTML - REUSABLE COMPONENT
+        ==============================================
+        
+        HOW TO USE:
+        1. Save this file as "navbar.html"
+        2. Include Tailwind CSS and Font Awesome in your main HTML
+        3. Add this div in your main HTML: <div id="navbar-container"></div>
+        4. Add the initialization script (see bottom of this file)
+        
+        REQUIRED DEPENDENCIES IN YOUR MAIN HTML:
+        - Tailwind CSS: <script src="https://cdn.tailwindcss.com"></script>
+        - Font Awesome: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        - Poppins Font: <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        */
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Sidebar animation */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        
+        /* Overlay */
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Prevent body scroll when sidebar is open */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR COMPONENT START -->
+
+<!-- Header -->
+<header class="bg-white shadow-sm fixed top-0 left-0 w-full z-40">
+    <div class="flex justify-between items-center px-6 md:px-16 py-6">
+        <!-- Logo -->
+        <div class="flex items-center">
+            <img src="/images/Marvab Technologies1 1.png" alt="Marvab Tech Logo" class="w-25 h-24 mr-0.5" />
+            <span class="text-xl font-bold">Marvab Tech</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8 font-medium text-gray-800">
+            <a href="/index.html" class="hover:text-purple-700 transition-colors">Home</a>
+            <a href="/about.html" class="hover:text-purple-700 transition-colors">About</a>
+            <!-- <a href="/portfolio.html" class="hover:text-purple-700 transition-colors">Portfolio</a>  -->
+            <a href="/contact.html" class="hover:text-purple-700 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Get Started Button (Desktop) -->
+        <!-- <a href="#get-started" class="hidden md:block bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white font-semibold px-5 py-2 rounded-lg transition duration-300">
+            Get Started
+        </a> -->
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-purple-700 transition-colors" aria-label="Open menu">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
     </div>
-
-    <!-- Desktop Navigation -->
-    <nav class="hidden md:flex space-x-8 font-medium text-gray-800">
-      <a href="/index.html" class="hover:text-green-600 transition-colors">Home</a>
-      <a href="/about.html" class="hover:text-green-600 transition-colors">About</a>
-      <a href="/portfolio.html" class="hover:text-green-600 transition-colors">Portfolio</a>
-      <a href="/contact.html" class="hover:text-green-600 transition-colors">Contact</a>
-    </nav>
-
-    <!-- Get Started Button (Desktop) -->
-    <a href="#" class="hidden md:block bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-300">
-      Get Started
-    </a>
-
-    <!-- Mobile Menu Button -->
-    <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-green-600 transition-colors">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
-  </div>
 </header>
 
-<!-- Add this style to create spacing under the fixed header -->
+<!-- Spacing for fixed header -->
 <div class="h-28"></div>
 
 <!-- Mobile Sidebar Overlay -->
-<div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
+<div id="sidebar-overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden"></div>
 
 <!-- Mobile Sidebar -->
-<div id="mobile-sidebar" class="fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-50 transform -translate-x-full transition-transform duration-300 md:hidden">
-  <div class="flex flex-col h-full">
-    <!-- Sidebar Header -->
-    <div class="flex justify-between items-center px-6 py-6 border-b">
-      <div class="flex items-center">
-        <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" class="w-25 h-24 mr-0.5" />
-        <span class="text-xl font-bold">Marvab Tech</span>
-      </div>
-      <button id="close-sidebar" class="text-gray-800 hover:text-green-600 transition-colors">
-        <i class="fas fa-times text-xl"></i>
-      </button>
-    </div>
+<div id="mobile-sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-[60] md:hidden overflow-y-auto">
+    <div class="flex flex-col h-full">
+        <!-- Sidebar Header -->
+        <div class="flex justify-between items-center px-6 py-6 border-b">
+            <div class="flex items-center">
+                <img src="/images/Marvab Technologies1 1.png" alt="Marvab Tech Logo" class="w-20 h-20 mr-2" />
+                <span class="text-xl font-bold">Marvab Tech</span>
+            </div>
+            <button id="close-sidebar" class="text-gray-800 hover:text-purple-700 transition-colors" aria-label="Close menu">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
 
-    <!-- Sidebar Navigation -->
-    <nav class="flex-1 px-6 py-8">
-      <ul class="space-y-6">
-        <li>
-          <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-green-600 transition-colors py-3 border-b border-gray-100">
-            <i class="fas fa-home w-5"></i>
-            <span class="font-medium">Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="/about.html" class="flex items-center space-x-3 text-gray-800 hover:text-green-600 transition-colors py-3 border-b border-gray-100">
-            <i class="fas fa-user w-5"></i>
-            <span class="font-medium">About</span>
-          </a>
-        </li>
-        <li>
-          <a href="/portfolio.html" class="flex items-center space-x-3 text-gray-800 hover:text-green-600 transition-colors py-3 border-b border-gray-100">
-            <i class="fas fa-briefcase w-5"></i>
-            <span class="font-medium">Portfolio</span>
-          </a>
-        </li>
-        <li>
-          <a href="/contact.html" class="flex items-center space-x-3 text-gray-800 hover:text-green-600 transition-colors py-3 border-b border-gray-100">
-            <i class="fas fa-envelope w-5"></i>
-            <span class="font-medium">Contact</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+        <!-- Sidebar Navigation -->
+        <nav class="flex-1 px-6 py-8">
+            <ul class="space-y-6">
+                <li>
+                    <a href="/index.html" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-home w-5"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about.html" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-user w-5"></i>
+                        <span class="font-medium">About</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="/portfolio.html" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-briefcase w-5"></i>
+                        <span class="font-medium">Portfolio</span>
+                    </a>
+                </li> -->
+                <li>
+                    <a href="/contact.html" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-envelope w-5"></i>
+                        <span class="font-medium">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <!-- Sidebar Footer -->
-    <div class="px-6 py-6 border-t">
-      <a href="#" class="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-lg transition duration-300 text-center">
-        Get Started
-      </a>
+        <!-- Sidebar Footer -->
+        <div class="px-6 py-6 border-t">
+            <!-- <a href="#get-started" class="block w-full bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white font-semibold px-5 py-3 rounded-lg transition duration-300 text-center">
+                Get Started
+            </a> -->
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Script for sidebar toggle -->
+<!-- NAVBAR COMPONENT END -->
+
+<!-- 
+==============================================
+INITIALIZATION SCRIPT FOR YOUR MAIN HTML
+==============================================
+
+Add this script to your main HTML file (index.html, about.html, etc.)
+Place it at the bottom of your <body> tag, before closing </body>
+
 <script>
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const sidebar = document.getElementById('mobile-sidebar');
-  const overlay = document.getElementById('sidebar-overlay');
-  const closeBtn = document.getElementById('close-sidebar');
+    // Load Navbar
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+            initializeNavbar();
+        })
+        .catch(error => console.error('Error loading navbar:', error));
 
-  menuBtn.addEventListener('click', () => {
-    sidebar.classList.remove('-translate-x-full');
-    overlay.classList.remove('hidden');
-  });
+    // Initialize Navbar Functionality
+    function initializeNavbar() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const closeSidebarBtn = document.getElementById('close-sidebar');
 
-  closeBtn.addEventListener('click', () => {
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-  });
+        if (!mobileMenuBtn || !mobileSidebar || !sidebarOverlay || !closeSidebarBtn) {
+            console.error('Navbar elements not found');
+            return;
+        }
 
-  overlay.addEventListener('click', () => {
-    sidebar.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-  });
+        // Function to open sidebar
+        function openSidebar() {
+            mobileSidebar.classList.add('open');
+            sidebarOverlay.classList.add('show');
+            document.body.classList.add('sidebar-open');
+        }
+
+        // Function to close sidebar
+        function closeSidebar() {
+            mobileSidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('show');
+            document.body.classList.remove('sidebar-open');
+        }
+
+        // Event listeners
+        mobileMenuBtn.addEventListener('click', openSidebar);
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar when clicking on navigation links
+        const sidebarLinks = document.querySelectorAll('#mobile-sidebar nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeSidebar();
+            }
+        });
+
+        // Close sidebar on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+    }
 </script>

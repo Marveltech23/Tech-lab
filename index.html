@@ -7,125 +7,154 @@
     <script src="https://cdn.tailwindcss.com"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
+   <style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
 
-        /* Sidebar animation */
-        .sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
+    /* Sidebar animation */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    /* Overlay */
+    .overlay {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    
+    .overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+</style>
+</head>
+
+<body class="bg-green-50 text-gray-900 font-sans pt-28">
+<!-- The pt-28 pushes the body down so the fixed navbar does not cover content -->
+
+<!-- Navbar / Header -->
+<header class="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+    <div class="flex justify-between items-center px-6 md:px-16 py-6">
         
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        
-        /* Overlay */
-        .overlay {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        
-        .overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-    </style>
-  </head>
-  <body class="bg-green-50 text-gray-900 font-sans">
-    <!-- Navbar -->
-     <!-- Header -->
-    <header class="bg-white shadow-sm relative z-50">
-        <div class="flex justify-between items-center px-6 md:px-16 py-6">
-            <!-- Logo -->
+        <!-- Logo -->
+        <div class="flex items-center">
+            <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" 
+                 class="w-25 h-24 mr-0.5" />
+            <span class="text-xl font-bold">Marvab Tech</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8 font-medium text-gray-800">
+            <a href="#" class="hover:text-purple-700 transition-colors">Home</a>
+            <a href="/about.html" class="hover:text-purple-700 transition-colors">About</a>
+            <!-- <a href="/portfolio.html" class="hover:text-purple-700 transition-colors">Portfolio</a> -->
+            <a href="/contact.html" class="hover:text-purple-700 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Get Started Button (Desktop) -->
+        <!-- <a href="#"
+           class="hidden md:block bg-gradient-to-r from-purple-700 to-gray-900 
+                  hover:from-purple-800 hover:to-gray-800 text-white font-semibold 
+                  px-5 py-2 rounded-lg transition duration-300">
+            Get Started
+        </a> -->
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" 
+                class="md:hidden text-gray-800 hover:text-green-600 transition-colors">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebar-overlay" 
+     class="overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+
+<!-- Mobile Sidebar -->
+<div id="mobile-sidebar" 
+     class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-50 md:hidden">
+     
+    <div class="flex flex-col h-full">
+
+        <!-- Sidebar Header -->
+        <div class="flex justify-between items-center px-6 py-6 border-b">
             <div class="flex items-center">
-                <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" class="w-25 h-24 mr-0.5" />
+                <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" 
+                     class="w-25 h-24 mr-0.5" />
                 <span class="text-xl font-bold">Marvab Tech</span>
             </div>
-
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8 font-medium text-gray-800">
-              <a href="#" class="hover:text-purple-700 transition-colors">Home</a>
-<a href="/about.html" class="hover:text-purple-700 transition-colors">About</a>
-<a href="/portfolio.html" class="hover:text-purple-700 transition-colors">Portfolio</a> 
-<a href="/contact.html" class="hover:text-purple-700 transition-colors">Contact</a>
-
-            </nav>
-
-            <!-- Get Started Button (Desktop) -->
-            <a href="#"
-   class="hidden md:block bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white font-semibold px-5 py-2 rounded-lg transition duration-300">
-    Get Started
-</a>
-
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-green-600 transition-colors">
-                <i class="fas fa-bars text-xl"></i>
+            <button id="close-sidebar" 
+                    class="text-gray-800 hover:text-green-600 transition-colors">
+                <i class="fas fa-times text-xl"></i>
             </button>
         </div>
-    </header>
 
-    <!-- Mobile Sidebar Overlay -->
-    <div id="sidebar-overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+        <!-- Sidebar Navigation -->
+        <nav class="flex-1 px-6 py-8">
+            <ul class="space-y-6">
+                <li>
+                    <a href="/index.html" 
+                       class="flex items-center space-x-3 text-gray-800 
+                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-home w-5"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                </li>
 
-    <!-- Mobile Sidebar -->
-    <div id="mobile-sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-50 md:hidden">
-        <div class="flex flex-col h-full">
-            <!-- Sidebar Header -->
-            <div class="flex justify-between items-center px-6 py-6 border-b">
-                <div class="flex items-center">
-                <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" class="w-25 h-24 mr-0.5" />
-                    <span class="text-xl font-bold">Marvab Tech</span>
-                </div>
-                <button id="close-sidebar" class="text-gray-800 hover:text-green-600 transition-colors">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
+                <li>
+                    <a href="/about.html" 
+                       class="flex items-center space-x-3 text-gray-800 
+                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-user w-5"></i>
+                        <span class="font-medium">About</span>
+                    </a>
+                </li>
 
-            <!-- Sidebar Navigation -->
-            <nav class="flex-1 px-6 py-8">
-                <ul class="space-y-6">
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                            <i class="fas fa-home w-5"></i>
-                            <span class="font-medium">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                            <i class="fas fa-user w-5"></i>
-                            <span class="font-medium">About</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                            <i class="fas fa-briefcase w-5"></i>
-                            <span class="font-medium">Portfolio</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center space-x-3 text-gray-800 hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                            <i class="fas fa-envelope w-5"></i>
-                            <span class="font-medium">Contact</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                <!-- <li>
+                    <a href="/portfolio.html" 
+                       class="flex items-center space-x-3 text-gray-800 
+                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-briefcase w-5"></i>
+                        <span class="font-medium">Portfolio</span>
+                    </a>
+                </li> -->
 
-            <!-- Sidebar Footer -->
-            <div class="px-6 py-6 border-t">
-                <a href="#"
-   class="block w-full bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white font-semibold px-5 py-3 rounded-lg transition duration-300 text-center">
-    Get Started
-</a>
+                <li>
+                    <a href="/contact.html" 
+                       class="flex items-center space-x-3 text-gray-800 
+                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
+                        <i class="fas fa-envelope w-5"></i>
+                        <span class="font-medium">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-            </div>
+        <!-- Sidebar Footer -->
+        <div class="px-6 py-6 border-t">
+            <!-- <a href="#"
+               class="block w-full bg-gradient-to-r from-purple-700 to-gray-900 
+                      hover:from-purple-800 hover:to-gray-800 text-white font-semibold 
+                      px-5 py-3 rounded-lg transition duration-300 text-center">
+                Get Started
+            </a> -->
         </div>
+
     </div>
+</div>
+
 
     <!-- Hero Section -->
     <section class="text-center px-6 md:px-20 py-16">
@@ -651,9 +680,9 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
     </a>
 
     <!-- Card 2 -->
-    <a href="https://flashbills.com.ng/" target="_blank" rel="noopener noreferrer">
+    <a href="https://afrifoodxpress.com.ng/" target="_blank" rel="noopener noreferrer">
       <div class="space-y-2">
-        <img alt="FlashBills website" class="rounded-lg w-full" height="120" src="images/flashbills.png" width="280" />
+        <img alt="FlashBills website" class="rounded-lg w-full" height="120" src="images/afrfoodexpresspicture.jpeg" width="280" />
         <h4 class="text-black font-semibold text-sm">FlashBills</h4>
         <p class="text-black text-xs font-light leading-tight">
           FlashBills is a digital platform that makes bill payments and airtime purchases fast, easy, and affordable. Users can buy airtime and data across all major networks, pay electricity and TV bills.
@@ -724,7 +753,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
                         <div class="mt-4">
                             <p class="text-3xl font-bold">₦350,000</p>
                             <p class="text-emerald-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦200,000/mo</p>
+                            <p class="text-2xl font-semibold mt-2">₦150,000/mo</p>
                             <p class="text-emerald-100 text-sm">Monthly Retainer</p>
                         </div>
                     </div>
@@ -771,7 +800,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
                         <div class="mt-4">
                             <p class="text-3xl font-bold">₦650,000</p>
                             <p class="text-blue-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦400,000/mo</p>
+                            <p class="text-2xl font-semibold mt-2">₦250,000/mo</p>
                             <p class="text-blue-100 text-sm">Monthly Retainer</p>
                         </div>
                     </div>
@@ -815,7 +844,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
                         <div class="mt-4">
                             <p class="text-3xl font-bold">₦1,200,000+</p>
                             <p class="text-purple-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦700,000+/mo</p>
+                            <p class="text-2xl font-semibold mt-2">₦350,000+/mo</p>
                             <p class="text-purple-100 text-sm">Monthly Retainer</p>
                         </div>
                     </div>
@@ -1028,12 +1057,12 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
     <!-- Team member 1 -->
     <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col items-center text-center space-y-4">
-     <img alt="Photo of team member John Doe, a man with short hair and glasses, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/IMA2MAIN.png" width="112"/>
+     <img alt="Photo of team member John Doe, a man with short hair and glasses, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/PSF-8029.jpg" width="112"/>
      <h4 class="text-white font-semibold text-lg">
-      Ima Isip
+      Debby simon
      </h4>
      <p class="text-white/70 text-xs font-light">
-      Co-Founder &amp; Head of Marketing (CMO)
+      social media mananager  &amp; Head of Marketing (CMO)
      </p>
      <p class="text-white/70 text-[9px] font-light leading-tight max-w-xs">
       <!-- Ema leads the company with a vision for innovation and excellence. -->
@@ -1054,12 +1083,12 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
     </div>
     <!-- Team member 3 -->
     <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col items-center text-center space-y-4">
-     <img alt="Photo of team member Mike Johnson, a man with short hair and beard, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/abase.jpg" width="112"/>
+     <img alt="Photo of team member Mike Johnson, a man with short hair and beard, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/promise.png" width="112"/>
      <h4 class="text-white font-semibold text-lg">
-      Abaze Ibekwe
+      Promise 
      </h4>
      <p class="text-white/70 text-xs font-light">
-      CEO &amp; Co-Founder
+      Head of marketing 
      </p>
      <p class="text-white/70 text-[9px] font-light leading-tight max-w-xs">
       <!-- Mike builds robust and scalable web solutions for our clients. -->
@@ -1102,7 +1131,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      Working with Techlabs has been a game changer for our logistics operations. Their team built a custom software that helped us track deliveries in real time, cutting errors by over 40%. They listened carefully and delivered exactly what we neede
+      Working with Marvab Tech has been a game changer for our logistics operations. Their team built a custom software that helped us track deliveries in real time, cutting errors by over 40%. They listened carefully and delivered exactly what we neede
      </p>
     </div>
     <!-- Testimonial 2 -->
@@ -1119,7 +1148,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      As a small business owner, finding affordable and reliable tech partners has always been tough  until I found Techlabs. Their customer support is top-notch, and the software they developed for our inventory management has been a blessing
+      As a small business owner, finding affordable and reliable tech partners has always been tough  until I found Marvab Tech. Their customer support is top-notch, and the software they developed for our inventory management has been a blessing
      </p>
     </div>
     <!-- Testimonial 3 -->
@@ -1136,7 +1165,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      Techlabs understood our vision right from the first meeting. The CRM solution they built has improved our client management and communication by leaps and bounds. I love their attention to detail and professionalism
+      Marvab Tech understood our vision right from the first meeting. The CRM solution they built has improved our client management and communication by leaps and bounds. I love their attention to detail and professionalism
      </p>
     </div>
 
@@ -1155,7 +1184,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      We needed a mobile app urgently for our food delivery service, and Techlabs delivered ahead of schedule without compromising quality. Their team was very easy to work with, and the app has received fantastic feedback from our users
+      We needed a mobile app urgently for our food delivery service, and Marvab Tech delivered ahead of schedule without compromising quality. Their team was very easy to work with, and the app has received fantastic feedback from our users
      </p>
     </div>
     <!-- Testimonial 5 -->
@@ -1172,7 +1201,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      The website redesign Techlabs did for us exceeded all expectations. The new design has boosted our online engagement and made it easier for customers to navigate our services. They're the real deal when it comes to user-friendly tech solutions
+      The website redesign Marvab Tech did for us exceeded all expectations. The new design has boosted our online engagement and made it easier for customers to navigate our services. They're the real deal when it comes to user-friendly tech solutions
      </p>
     </div>
     <!-- Testimonial 6 -->
@@ -1189,7 +1218,7 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
       </i>
      </div>
      <p class="text-white/70 text-xs font-light leading-tight">
-      Partnering with Techlabs was one of the best decisions we've made this year. They combined technical expertise with creative ideas, delivering a software solution that’s both powerful and easy for our team to use
+      Partnering with Marvab Tech was one of the best decisions we've made this year. They combined technical expertise with creative ideas, delivering a software solution that’s both powerful and easy for our team to use
      </p>
     </div>
    </div>
@@ -1211,78 +1240,8 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
 
 
    <!-- Footer Section -->
-<footer class="bg-[#16182E] text-white px-6 md:px-20 pt-12 pb-6">
-  <!-- Top Section -->
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#00F0A0] pb-8">
-    <div>
-      <h2 class="text-3xl font-bold">Unlock Global Opportunities</h2>
-      <p class="mt-2 text-sm text-gray-300">Expand your horizons and tap into a world of global opportunities.</p>
-    </div>
-    <div class="mt-6 md:mt-0">
-      <a href="#" class="bg-[#00F0A0] text-[#16182E] px-6 py-3 rounded-md font-semibold inline-flex items-center hover:bg-[#00e69a] transition">
-        Get Started
-        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
-    </div>
-  </div>
 
-  <!-- Bottom Section -->
-  <div class="flex flex-col md:flex-row md:justify-between gap-10 mt-10">
-    <!-- Logo and Text -->
-    <div class="md:w-1/3">
-      <div class="flex items-center gap-2 mb-4">
-        <img src="logo-placeholder.png" alt="Logo" class="w-8 h-8" />
-        <span class="text-2xl font-semibold">Techfield</span>
-      </div>
-      <p class="text-sm text-gray-300">Expand your horizons and tap into a world of global opportunities.</p>
-    </div>
-
-    <!-- Links -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-10 text-sm">
-      <!-- Product -->
-      <div>
-        <h3 class="font-semibold mb-3">Product</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#">Accelerate</a></li>
-          <li><a href="#">Raise</a></li>
-          <li><a href="#">Normadic</a></li>
-          <li><a href="#">Enterprise Solution</a></li>
-          <li><a href="#">Match</a></li>
-        </ul>
-      </div>
-      <!-- Company -->
-      <div>
-        <h3 class="font-semibold mb-3">Company</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Programmes</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <!-- Others -->
-      <div>
-        <h3 class="font-semibold mb-3">Others</h3>
-        <ul class="space-y-2 text-gray-300">
-          <li><a href="#">Events</a></li>
-          <li><a href="#">Resources</a></li>
-          <li><a href="#">Partnerships</a></li>
-          <li><a href="#">Success Stories</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Copyright -->
-  <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 border-t border-[#00F0A0] mt-10 pt-6">
-    <p>© All rights reserved by Techfield</p>
-    <p>Design and developed with <span class="font-bold text-white">LOVE</span> by Oniontabs</p>
-  </div>
-</footer>
-
+     <div id="footer-container"></div>
 
     
 
@@ -1350,6 +1309,110 @@ We go beyond services — our all-in-one solutions combine websites, branding, c
                 closeSidebar();
             }
         });
+
+
+        
+
+
+
+  // Load Navigation Bar
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+                initializeMobileMenu();
+            })
+            .catch(error => console.log('Navbar not found'));
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.log('Footer not found'));
+
+        // Mobile Menu Functionality
+        function initializeMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const sidebar = document.getElementById('mobile-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            }
+
+            if (closeSidebarBtn) {
+                closeSidebarBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+        }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would normally send the form data to your server
+            // For now, we'll just show a success message
+            
+            const form = e.target;
+            const successMessage = document.getElementById('successMessage');
+            
+            // Show success message
+            successMessage.classList.remove('hidden');
+            
+            // Reset form
+            form.reset();
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 5000);
+        });
+
+        // FAQ Accordion Functionality
+        const faqButtons = document.querySelectorAll('.faq-button');
+        
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle current FAQ
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+                
+                // Close other FAQs (optional - comment out for multiple open)
+                faqButtons.forEach(otherButton => {
+                    if (otherButton !== button) {
+                        const otherContent = otherButton.nextElementSibling;
+                        const otherIcon = otherButton.querySelector('i');
+                        otherContent.classList.add('hidden');
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+            });
+        });
+
+
+
+
 
 
     </script>
