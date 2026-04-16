@@ -1,281 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techfield - Navigational Tools for Innovators</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        /* Sidebar Styles */
-        .sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .sidebar.active {
-            transform: translateX(0);
-        }
-        .overlay {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 min-h-screen">
-
-    <!-- Navigation Bar Include Section -->
-    <div id="navbar-container"></div>
-
-    <div class="container mx-auto px-4 py-12 md:py-20">
-
-        <!-- Hero Section -->
-        <div class="text-center max-w-4xl mx-auto mb-16">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-Marvab Tech is designing digital infrastructure for businesses that want to scale, sell, and thrive in today’s digital economy. </h1>
-            <p class="text-base md:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-Be part of MarvabTech  give your business a digital presence in one click.</p>
-           <button
-  class="bg-gradient-to-r from-purple-700 to-gray-900 
-         hover:from-purple-800 hover:to-gray-800
-         text-white font-semibold px-8 py-3 rounded-lg 
-         inline-flex items-center gap-2 
-         transition-all duration-300 transform hover:scale-105 shadow-lg"
->
-  Get Started
-  <svg
-    class="w-5 h-5"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M17 8l4 4m0 0l-4 4m4-4H3"
-    />
-  </svg>
-</button>
-
-        </div>
-
-        <!-- Images Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto mb-16">
-            <div class="rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
-                     alt="Team collaboration"
-                     class="w-full h-64 md:h-80 lg:h-96 object-cover">
-            </div>
-
-            <div class="rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300">
-                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop"
-                     alt="Team celebration"
-                     class="w-full h-64 md:h-80 lg:h-96 object-cover">
-            </div>
-        </div>
-
-        <!-- Who We Are Section -->
-        <div class="max-w-4xl mx-auto mb-20">
-            <div class="bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg p-8 md:p-12">
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                    Who We Are
-                </h2>
-                <div class="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
-                    <p>
-                        At Marvab Technology, we believe that every business deserves more than just an online
-                        presence — it deserves a digital infrastructure built for growth.
-                    </p>
-
-                    <p>
-                        We are a full-service technology and digital solutions company dedicated to helping businesses:
-                    </p>
-
-                    <ol class="list-disc list-inside text-gray-700 space-y-2">
-                        <li>Sell more with proven systems.</li>
-                        <li>Build a strong, professional brand identity.</li>
-                        <li>Establish a powerful digital presence that attracts and retains customers.</li>
-                    </ol>
-
-                    <p>
-                        From branding to marketing, website development to custom software, we don’t just give you tools —
-                        we build the foundation that helps your business thrive in today's competitive digital world.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- What We Do Section -->
-        <div class="max-w-7xl mx-auto mb-20">
-
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">What We Do</h2>
-                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                    We provide an all-in-one digital solution that covers every area your business needs to grow.
-                </p>
-            </div>
-
-            <!-- Services Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-
-                <!-- Service Cards (unchanged) -->
-                <!-- Branding -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-emerald-500">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-palette text-emerald-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Branding & Identity</h3>
-                    <p class="text-gray-600">Professional logos, brand kits, and strategies that make your business unforgettable.</p>
-                </div>
-
-                <!-- Social Media -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-blue-500">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-share-alt text-blue-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Social Media Management</h3>
-                    <p class="text-gray-600">Grow your audience and drive engagement on the platforms that matter.</p>
-                </div>
-
-                <!-- Digital Marketing -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-purple-500">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Digital Marketing</h3>
-                    <p class="text-gray-600">Smart campaigns that attract leads and turn them into paying customers.</p>
-                </div>
-
-                <!-- Content Creation -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-pink-500">
-                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-pen-fancy text-pink-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Content Creation</h3>
-                    <p class="text-gray-600">Graphics, videos, and written content that connect with your audience.</p>
-                </div>
-
-                <!-- Website / E-commerce -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-orange-500">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-laptop-code text-orange-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Website & E-Commerce</h3>
-                    <p class="text-gray-600">Websites and stores built to convert visitors into customers.</p>
-                </div>
-
-                <!-- Sales Funnel -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-teal-500">
-                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-filter text-teal-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Sales Funnel Design</h3>
-                    <p class="text-gray-600">Streamlined customer journeys that maximize sales.</p>
-                </div>
-
-                <!-- Mobile App -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-indigo-500">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-mobile-alt text-indigo-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mobile App Development</h3>
-                    <p class="text-gray-600">Engaging apps that bring your brand closer to your customers.</p>
-                </div>
-
-                <!-- Software -->
-                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-red-500">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fas fa-cogs text-red-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Custom Software Solutions</h3>
-                    <p class="text-gray-600">Tailored systems built to match your business operations.</p>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer Include Section -->
-    <div id="footer-container"></div>
-
-    <script>
-    // Load Navbar
-    fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-container').innerHTML = data;
-            initializeNavbar();
-        })
-        .catch(error => console.error('Error loading navbar:', error));
-
-    // Initialize Navbar Functionality
-    function initializeNavbar() {
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const closeSidebarBtn = document.getElementById('close-sidebar');
-
-        if (!mobileMenuBtn || !mobileSidebar || !sidebarOverlay || !closeSidebarBtn) {
-            console.error('Navbar elements not found');
-            return;
-        }
-
-        // Function to open sidebar
-        function openSidebar() {
-            mobileSidebar.classList.add('open');
-            sidebarOverlay.classList.add('show');
-            document.body.classList.add('sidebar-open');
-        }
-
-        // Function to close sidebar
-        function closeSidebar() {
-            mobileSidebar.classList.remove('open');
-            sidebarOverlay.classList.remove('show');
-            document.body.classList.remove('sidebar-open');
-        }
-
-        // Event listeners
-        mobileMenuBtn.addEventListener('click', openSidebar);
-        closeSidebarBtn.addEventListener('click', closeSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
-
-        // Close sidebar when clicking on navigation links
-        const sidebarLinks = document.querySelectorAll('#mobile-sidebar nav a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', closeSidebar);
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                closeSidebar();
-            }
-        });
-
-        // Close sidebar on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeSidebar();
-            }
-        });
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – Tech Labs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-deep: #1e3a8a;
+      --blue-mid: #2563eb;
+      --purple-mid: #7c3aed;
+      --dark: #0f0f1a;
+      --dark2: #1a1a2e;
     }
 
-    //footer 
+    * { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, .font-display { font-family: 'Syne', sans-serif; }
 
-    fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.log('Footer not found'));
+    body { background: #f8f9ff; }
 
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
+    .sidebar.open { transform: translateX(0); }
+    .overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .overlay.show { opacity: 1; visibility: visible; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8, #6d28d9);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124,58,237,0.35);
+    }
+
+    .dark-section { background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%); }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .value-card {
+      border: 1px solid rgba(37,99,235,0.12);
+      transition: all 0.3s;
+    }
+    .value-card:hover {
+      border-color: rgba(37,99,235,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(37,99,235,0.12);
+    }
+
+    /* Page hero */
+    .about-hero {
+      background: radial-gradient(ellipse at 30% 0%, rgba(37,99,235,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 100%, rgba(124,58,237,0.12) 0%, transparent 50%),
+                  #f8f9ff;
+    }
+
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+  </style>
+</head>
+
+<body class="text-gray-900 pt-24">
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="bg-white/95 backdrop-blur-md shadow-sm fixed top-0 left-0 w-full z-50 border-b border-blue-50">
+  <div class="flex justify-between items-center px-6 md:px-16 py-4">
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl btn-primary flex items-center justify-center shadow-lg">
+        <i class="fas fa-code text-white text-lg"></i>
+      </div>
+      <span class="text-xl font-display font-800 text-gray-900">Tech<span class="gradient-text">Labs</span></span>
+    </a>
+
+    <nav class="hidden md:flex space-x-8 font-medium text-gray-700">
+      <a href="index.html" class="nav-link hover:text-blue-600 transition-colors">Home</a>
+      <a href="about.html" class="nav-link text-blue-600 font-semibold">About</a>
+      <a href="index.html#services" class="nav-link hover:text-blue-600 transition-colors">Services</a>
+      <a href="index.html#contact" class="nav-link hover:text-blue-600 transition-colors">Contact</a>
+    </nav>
+
+    <a href="index.html#contact" class="hidden md:inline-flex btn-primary text-white font-semibold px-5 py-2.5 rounded-xl items-center gap-2 shadow-lg">
+      Get Started <i class="fas fa-arrow-right text-sm"></i>
+    </a>
+
+    <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Overlay -->
+<div id="sidebar-overlay" class="overlay fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
+<!-- Mobile Sidebar -->
+<div id="mobile-sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white z-50 md:hidden shadow-2xl">
+  <div class="flex flex-col h-full">
+    <div class="flex justify-between items-center px-6 py-5 border-b border-blue-50">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl btn-primary flex items-center justify-center">
+          <i class="fas fa-code text-white"></i>
+        </div>
+        <span class="text-lg font-display font-700">Tech<span class="gradient-text">Labs</span></span>
+      </div>
+      <button id="close-sidebar" class="text-gray-700 hover:text-blue-600"><i class="fas fa-times text-xl"></i></button>
+    </div>
+    <nav class="flex-1 px-6 py-8">
+      <ul class="space-y-2">
+        <li><a href="index.html" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-home w-5"></i><span class="font-medium">Home</span></a></li>
+        <li><a href="about.html" class="flex items-center gap-3 text-blue-600 py-3 px-4 rounded-xl bg-blue-50 transition-all"><i class="fas fa-user w-5"></i><span class="font-medium">About</span></a></li>
+        <li><a href="index.html#services" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-cogs w-5"></i><span class="font-medium">Services</span></a></li>
+        <li><a href="index.html#contact" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-envelope w-5"></i><span class="font-medium">Contact</span></a></li>
+      </ul>
+    </nav>
+    <div class="px-6 py-6 border-t border-blue-50">
+      <a href="index.html#contact" class="block w-full btn-primary text-white font-semibold px-5 py-3 rounded-xl text-center shadow-lg">Get Started</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== ABOUT HERO ===================== -->
+<section class="about-hero py-24 px-6 md:px-16 text-center relative overflow-hidden">
+  <div class="absolute top-20 left-12 w-40 h-40 bg-blue-200/20 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-10 right-12 w-52 h-52 bg-purple-200/20 rounded-full blur-3xl"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">
+      <a href="index.html" class="hover:text-blue-600 transition-colors">Home</a>
+      <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+      <span class="text-blue-600 font-medium">About</span>
+    </div>
+
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-800 leading-tight mb-6 text-gray-900">
+      We Build <span class="gradient-text">Digital Ventures</span><br/>That Last
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-10">
+      Tech Labs is a full-service technology and digital solutions company dedicated to helping businesses sell more, build stronger brands, and establish powerful digital presences.
+    </p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="index.html#services" class="btn-primary text-white font-semibold px-8 py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
+        Our Services <i class="fas fa-arrow-right"></i>
+      </a>
+      <a href="index.html#contact" class="border-2 border-blue-200 hover:border-blue-400 text-gray-700 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl flex items-center justify-center gap-2 transition-all bg-white/80">
+        Work With Us <i class="fas fa-handshake"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== WHO WE ARE ===================== -->
+<section class="bg-white py-20 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+    <!-- Image / Visual -->
+    <div class="w-full lg:w-1/2 float-anim">
+      <div class="relative">
+        <div class="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl"></div>
+        <div class="relative bg-gradient-to-br from-blue-700 to-purple-700 rounded-3xl p-10 text-white shadow-2xl">
+          <div class="text-6xl font-display font-800 mb-2">12 wk</div>
+          <div class="text-blue-200 mb-8">Average project delivery</div>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
+              <i class="fas fa-search text-blue-300"></i>
+              <div>
+                <div class="font-semibold text-sm">Idea Validation</div>
+                <div class="text-blue-200 text-xs">2 weeks</div>
+              </div>
+              <div class="ml-auto text-xs text-blue-300 bg-white/10 rounded-full px-2 py-1">Phase 1</div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
+              <i class="fas fa-pencil-ruler text-purple-300"></i>
+              <div>
+                <div class="font-semibold text-sm">Prototyping</div>
+                <div class="text-blue-200 text-xs">3 weeks</div>
+              </div>
+              <div class="ml-auto text-xs text-purple-300 bg-white/10 rounded-full px-2 py-1">Phase 2</div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
+              <i class="fas fa-laptop-code text-blue-300"></i>
+              <div>
+                <div class="font-semibold text-sm">Build & Deploy</div>
+                <div class="text-blue-200 text-xs">5 weeks</div>
+              </div>
+              <div class="ml-auto text-xs text-blue-300 bg-white/10 rounded-full px-2 py-1">Phase 3</div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
+              <i class="fas fa-rocket text-purple-300"></i>
+              <div>
+                <div class="font-semibold text-sm">GTM Strategy</div>
+                <div class="text-blue-200 text-xs">2 weeks</div>
+              </div>
+              <div class="ml-auto text-xs text-purple-300 bg-white/10 rounded-full px-2 py-1">Phase 4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="w-full lg:w-1/2">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">Who We Are</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-6 leading-tight">
+        Transforming Ideas Into<br/>Impactful Ventures
+      </h2>
+      <div class="space-y-4 text-gray-600 leading-relaxed">
+        <p>At Tech Labs, we believe that every business deserves more than just an online presence — it deserves a <strong class="text-gray-900">digital infrastructure built for growth</strong>.</p>
+        <p>We are a full-service technology and digital solutions company dedicated to helping businesses sell more with proven systems, build strong professional brand identities, and establish powerful digital presences that attract and retain customers.</p>
+        <p>From branding to marketing, website development to custom software, we don't just give you tools — <strong class="text-gray-900">we build the foundation</strong> that helps your business thrive in today's competitive digital world.</p>
+      </div>
+
+      <div class="mt-8 grid grid-cols-2 gap-4">
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <div class="text-2xl font-display font-800 gradient-text">50+</div>
+          <div class="text-gray-600 text-sm mt-1">Ventures successfully built</div>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+          <div class="text-2xl font-display font-800 gradient-text">$500K+</div>
+          <div class="text-gray-600 text-sm mt-1">Revenue generated for clients</div>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+          <div class="text-2xl font-display font-800 gradient-text">6+</div>
+          <div class="text-gray-600 text-sm mt-1">Countries served globally</div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+          <div class="text-2xl font-display font-800 gradient-text">98%</div>
+          <div class="text-gray-600 text-sm mt-1">Client satisfaction rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== WHAT WE DO ===================== -->
+<section class="bg-blue-50 py-20 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">Our Capabilities</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-4">What We Do</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">We provide an all-in-one digital solution that covers every area your business needs to grow.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-blue-500">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+          <i class="fas fa-search text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Idea Validation</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Identify your core problem, research the market, define your MVP — before you invest a dollar in development.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-purple-500">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+          <i class="fas fa-pencil-ruler text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Prototyping</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Wireframes and interactive mockups crafted with a feedback loop to align user needs with business goals.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-blue-500">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+          <i class="fas fa-laptop-code text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Website & E-Commerce</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Responsive, high-converting websites and e-commerce platforms with hosting, SEO, and custom integrations.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-purple-500">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+          <i class="fas fa-rocket text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Go-to-Market</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Tailored GTM strategies — segmentation, positioning, channel selection, launch campaigns, and KPI tracking.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-blue-500">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+          <i class="fas fa-palette text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Branding & Identity</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Professional logos, brand kits, and visual strategies that make your business unforgettable in the market.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-purple-500">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+          <i class="fas fa-mobile-alt text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Mobile App Development</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Engaging apps for iOS and Android that bring your brand closer to your customers and scale with your business.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-blue-500">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+          <i class="fas fa-cogs text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Custom Software</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Tailored systems built to match your specific business operations — secure, scalable, and efficient.</p>
+      </div>
+
+      <div class="value-card bg-white rounded-2xl p-6 border-t-4 border-purple-500">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+          <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-gray-900 mb-2">Digital Marketing</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Smart campaigns, content creation, and social media management that attract leads and convert them into customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== OUR VALUES ===================== -->
+<section class="dark-section py-20 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-400 text-sm uppercase tracking-widest mb-3 font-medium">What Drives Us</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-white mb-4">Our Core Values</h2>
+      <p class="text-gray-400 max-w-xl mx-auto">The principles that guide every project, every client relationship, every line of code.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-medal text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">Expertise</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Proven track record of delivering high-quality venture and product designs. We bring deep domain knowledge to every project.</p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-sliders-h text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">Customization</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Tailored solutions to meet your unique business needs. No cookie-cutter templates — everything is built for you specifically.</p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-headset text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">End-to-End Support</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Comprehensive services from concept to execution — and beyond launch. We're with you at every step of the journey.</p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-heart text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">Customer-Centric</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Dedicated to ensuring your satisfaction and success. Your goals are our goals — we measure our success by yours.</p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">Transparency</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">No hidden fees. Clear timelines. Honest communication. You always know exactly where your project stands.</p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500 hover:bg-white/10 transition-all">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center mb-4">
+          <i class="fas fa-seedling text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="font-display font-700 text-white mb-2 text-lg">Growth-Oriented</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Every solution we build is designed with scalability in mind — so your digital infrastructure grows as your business grows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== TEAM ===================== -->
+<section class="bg-white py-20 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">The People</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-4">Meet Our Team</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Our dedicated specialists who drive innovation and deliver results for every client.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Team member 1 -->
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 rounded-2xl p-6 text-center hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4 text-white text-2xl font-display font-800 shadow-lg">AI</div>
+        <h4 class="font-display font-700 text-gray-900 mb-1">Abaz Ibekwe</h4>
+        <p class="text-blue-600 text-xs font-medium mb-3">CEO & Co-Founder</p>
+        <p class="text-gray-500 text-xs leading-relaxed">Visionary leader with a passion for transforming African startups into global ventures through technology.</p>
+        <div class="flex justify-center gap-2 mt-4">
+          <a href="#" class="w-7 h-7 bg-blue-100 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-linkedin text-blue-600 group-hover:text-white text-xs"></i></a>
+          <a href="#" class="w-7 h-7 bg-blue-100 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-twitter text-blue-600 group-hover:text-white text-xs"></i></a>
+        </div>
+      </div>
+
+      <!-- Team member 2 -->
+      <div class="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-100 rounded-2xl p-6 text-center hover:border-purple-400 hover:shadow-lg transition-all">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto mb-4 text-white text-2xl font-display font-800 shadow-lg">TC</div>
+        <h4 class="font-display font-700 text-gray-900 mb-1">Tech Lead</h4>
+        <p class="text-purple-600 text-xs font-medium mb-3">Chief Technology Officer</p>
+        <p class="text-gray-500 text-xs leading-relaxed">Architect of robust, scalable digital systems that power our clients' ventures across every platform.</p>
+        <div class="flex justify-center gap-2 mt-4">
+          <a href="#" class="w-7 h-7 bg-purple-100 hover:bg-purple-600 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-linkedin text-purple-600 group-hover:text-white text-xs"></i></a>
+          <a href="#" class="w-7 h-7 bg-purple-100 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-github text-purple-600 group-hover:text-white text-xs"></i></a>
+        </div>
+      </div>
+
+      <!-- Team member 3 -->
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 rounded-2xl p-6 text-center hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center mx-auto mb-4 text-white text-2xl font-display font-800 shadow-lg">DL</div>
+        <h4 class="font-display font-700 text-gray-900 mb-1">Design Lead</h4>
+        <p class="text-blue-600 text-xs font-medium mb-3">Head of UI/UX Design</p>
+        <p class="text-gray-500 text-xs leading-relaxed">Crafts beautiful, intuitive interfaces that delight users and drive measurable business results.</p>
+        <div class="flex justify-center gap-2 mt-4">
+          <a href="#" class="w-7 h-7 bg-blue-100 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-dribbble text-blue-600 group-hover:text-white text-xs"></i></a>
+          <a href="#" class="w-7 h-7 bg-blue-100 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-linkedin text-blue-600 group-hover:text-white text-xs"></i></a>
+        </div>
+      </div>
+
+      <!-- Team member 4 -->
+      <div class="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-100 rounded-2xl p-6 text-center hover:border-purple-400 hover:shadow-lg transition-all">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mx-auto mb-4 text-white text-2xl font-display font-800 shadow-lg">ML</div>
+        <h4 class="font-display font-700 text-gray-900 mb-1">Marketing Lead</h4>
+        <p class="text-purple-600 text-xs font-medium mb-3">Head of Growth & GTM</p>
+        <p class="text-gray-500 text-xs leading-relaxed">Builds and executes go-to-market strategies that help startups acquire customers from day one.</p>
+        <div class="flex justify-center gap-2 mt-4">
+          <a href="#" class="w-7 h-7 bg-purple-100 hover:bg-purple-600 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-linkedin text-purple-600 group-hover:text-white text-xs"></i></a>
+          <a href="#" class="w-7 h-7 bg-purple-100 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors group"><i class="fab fa-twitter text-purple-600 group-hover:text-white text-xs"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== NEXT STEPS / CTA ===================== -->
+<section class="bg-blue-50 py-20 px-6 md:px-16">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-gradient-to-br from-blue-700 to-purple-700 rounded-3xl p-10 md:p-14 text-white text-center shadow-2xl">
+      <h2 class="text-3xl md:text-4xl font-display font-700 mb-4">Ready to Start Your Journey?</h2>
+      <p class="text-blue-100 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+        Three simple steps: <strong class="text-white">Accept</strong> the proposal → <strong class="text-white">Kickoff</strong> meeting → <strong class="text-white">12-week execution</strong>. Starting from just <strong class="text-white">$2,000 USD</strong>.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="index.html#contact" class="bg-white text-blue-700 hover:bg-blue-50 font-bold px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105 inline-flex items-center justify-center gap-2">
+          Get Started Today <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="index.html#services" class="border-2 border-white/40 hover:border-white text-white font-semibold px-8 py-4 rounded-xl transition-all inline-flex items-center justify-center gap-2">
+          View Services <i class="fas fa-eye"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-black py-12 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl btn-primary flex items-center justify-center"><i class="fas fa-code text-white"></i></div>
+          <span class="text-xl font-display font-700 text-white">Tech<span class="gradient-text">Labs</span></span>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-xs">Transforming ideas into impactful ventures. From idea validation to launch — we build the digital infrastructure your business deserves.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-twitter text-white text-sm"></i></a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-blue-800 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-linkedin text-white text-sm"></i></a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-purple-600 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-instagram text-white text-sm"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-white font-display font-700 mb-4">Services</h4>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">Web Development</a></li>
+          <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">Mobile Apps</a></li>
+          <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">UI/UX Design</a></li>
+          <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">Branding</a></li>
+          <li><a href="index.html#services" class="hover:text-blue-400 transition-colors">GTM Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-display font-700 mb-4">Company</h4>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><a href="about.html" class="text-blue-400 font-medium">About Us</a></li>
+          <li><a href="index.html" class="hover:text-blue-400 transition-colors">Portfolio</a></li>
+          <li><a href="index.html#pricing" class="hover:text-blue-400 transition-colors">Pricing</a></li>
+          <li><a href="index.html#contact" class="hover:text-blue-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm">© 2025 Tech Labs. All rights reserved.</p>
+      <p class="text-gray-500 text-sm">Starting from <span class="gradient-text font-semibold">$2,000 USD</span> — no hidden fees.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  const closeSidebarBtn = document.getElementById('close-sidebar');
+
+  function openSidebar() { mobileSidebar.classList.add('open'); sidebarOverlay.classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeSidebar() { mobileSidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); document.body.style.overflow=''; }
+
+  mobileMenuBtn.addEventListener('click', openSidebar);
+  closeSidebarBtn.addEventListener('click', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('#mobile-sidebar nav a').forEach(a => a.addEventListener('click', closeSidebar));
+  window.addEventListener('resize', () => { if(window.innerWidth>=768) closeSidebar(); });
 </script>
 
 </body>
