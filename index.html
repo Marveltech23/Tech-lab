@@ -1,1432 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marvab-Tech</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-   <style>
-    * {
-        font-family: 'Poppins', sans-serif;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Labs – Digital Infrastructure for Modern Businesses</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-deep: #1e3a8a;
+      --blue-mid: #2563eb;
+      --blue-light: #3b82f6;
+      --purple-deep: #4c1d95;
+      --purple-mid: #7c3aed;
+      --purple-light: #a855f7;
+      --dark: #0f0f1a;
+      --dark2: #1a1a2e;
     }
 
-    /* Sidebar animation */
+    * { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, .font-display { font-family: 'Syne', sans-serif; }
+
+    body { background: #f8f9ff; }
+
+    /* Sidebar */
     .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
     }
-    
-    .sidebar.open {
-        transform: translateX(0);
-    }
-    
-    /* Overlay */
+    .sidebar.open { transform: translateX(0); }
     .overlay {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
     }
-    
-    .overlay.show {
-        opacity: 1;
-        visibility: visible;
+    .overlay.show { opacity: 1; visibility: visible; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    body.sidebar-open {
-        overflow: hidden;
+    /* Hero gradient background */
+    .hero-bg {
+      background: radial-gradient(ellipse at top left, rgba(37,99,235,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at bottom right, rgba(124,58,237,0.10) 0%, transparent 60%),
+                  #f8f9ff;
     }
-</style>
+
+    /* Card hover */
+    .service-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(37,99,235,0.15);
+    }
+
+    /* Dark section */
+    .dark-section {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%);
+    }
+
+    /* Gradient btn */
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8, #6d28d9);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124,58,237,0.35);
+    }
+
+    /* Timeline */
+    .timeline-bar {
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+    }
+
+    /* Nav link */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Accordion */
+    .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+    .accordion-content.open { max-height: 200px; }
+
+    /* Pulse badge */
+    @keyframes pulse-badge { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+    .pulse-badge { animation: pulse-badge 2s infinite; }
+
+    /* Scroll reveal */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+    .fade-up { animation: fadeUp 0.7s ease forwards; }
+  </style>
 </head>
 
-<body class="bg-green-50 text-gray-900 font-sans pt-28">
-<!-- The pt-28 pushes the body down so the fixed navbar does not cover content -->
+<body class="text-gray-900 pt-24">
 
-<!-- Navbar / Header -->
-<header class="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
-    <div class="flex justify-between items-center px-6 md:px-16 py-6">
-        
-        <!-- Logo -->
-        <div class="flex items-center">
-            <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" 
-                 class="w-25 h-24 mr-0.5" />
-            <span class="text-xl font-bold">Marvab Tech</span>
-        </div>
+<!-- ===================== NAVBAR ===================== -->
+<header class="bg-white/95 backdrop-blur-md shadow-sm fixed top-0 left-0 w-full z-50 border-b border-blue-50">
+  <div class="flex justify-between items-center px-6 md:px-16 py-4">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl btn-primary flex items-center justify-center shadow-lg">
+        <i class="fas fa-code text-white text-lg"></i>
+      </div>
+      <span class="text-xl font-display font-800 text-gray-900">Tech<span class="gradient-text">Labs</span></span>
+    </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-8 font-medium text-gray-800">
-            <a href="#" class="hover:text-purple-700 transition-colors">Home</a>
-            <a href="/about.html" class="hover:text-purple-700 transition-colors">About</a>
-            <!-- <a href="/portfolio.html" class="hover:text-purple-700 transition-colors">Portfolio</a> -->
-            <a href="/contact.html" class="hover:text-purple-700 transition-colors">Contact</a>
-        </nav>
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex space-x-8 font-medium text-gray-700">
+      <a href="index.html" class="nav-link hover:text-blue-600 transition-colors">Home</a>
+      <a href="about.html" class="nav-link hover:text-blue-600 transition-colors">About</a>
+      <a href="#services" class="nav-link hover:text-blue-600 transition-colors">Services</a>
+      <a href="#contact" class="nav-link hover:text-blue-600 transition-colors">Contact</a>
+    </nav>
 
-        <!-- Get Started Button (Desktop) -->
-        <!-- <a href="#"
-           class="hidden md:block bg-gradient-to-r from-purple-700 to-gray-900 
-                  hover:from-purple-800 hover:to-gray-800 text-white font-semibold 
-                  px-5 py-2 rounded-lg transition duration-300">
-            Get Started
-        </a> -->
+    <!-- CTA -->
+    <a href="#contact" class="hidden md:inline-flex btn-primary text-white font-semibold px-5 py-2.5 rounded-xl items-center gap-2 shadow-lg">
+      Get Started <i class="fas fa-arrow-right text-sm"></i>
+    </a>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" 
-                class="md:hidden text-gray-800 hover:text-green-600 transition-colors">
-            <i class="fas fa-bars text-xl"></i>
-        </button>
-    </div>
+    <!-- Mobile Toggle -->
+    <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600">
+      <i class="fas fa-bars text-xl"></i>
+    </button>
+  </div>
 </header>
 
-<!-- Mobile Sidebar Overlay -->
-<div id="sidebar-overlay" 
-     class="overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+<!-- Mobile Overlay -->
+<div id="sidebar-overlay" class="overlay fixed inset-0 bg-black/50 z-40 md:hidden"></div>
 
 <!-- Mobile Sidebar -->
-<div id="mobile-sidebar" 
-     class="sidebar fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-50 md:hidden">
-     
-    <div class="flex flex-col h-full">
-
-        <!-- Sidebar Header -->
-        <div class="flex justify-between items-center px-6 py-6 border-b">
-            <div class="flex items-center">
-                <img src="/images/Marvab Technologies1 1.png" alt="Techfield Logo" 
-                     class="w-25 h-24 mr-0.5" />
-                <span class="text-xl font-bold">Marvab Tech</span>
-            </div>
-            <button id="close-sidebar" 
-                    class="text-gray-800 hover:text-green-600 transition-colors">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+<div id="mobile-sidebar" class="sidebar fixed top-0 left-0 h-full w-80 bg-white z-50 md:hidden shadow-2xl">
+  <div class="flex flex-col h-full">
+    <div class="flex justify-between items-center px-6 py-5 border-b border-blue-50">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl btn-primary flex items-center justify-center">
+          <i class="fas fa-code text-white"></i>
         </div>
-
-        <!-- Sidebar Navigation -->
-        <nav class="flex-1 px-6 py-8">
-            <ul class="space-y-6">
-                <li>
-                    <a href="/index.html" 
-                       class="flex items-center space-x-3 text-gray-800 
-                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                        <i class="fas fa-home w-5"></i>
-                        <span class="font-medium">Home</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/about.html" 
-                       class="flex items-center space-x-3 text-gray-800 
-                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                        <i class="fas fa-user w-5"></i>
-                        <span class="font-medium">About</span>
-                    </a>
-                </li>
-
-                <!-- <li>
-                    <a href="/portfolio.html" 
-                       class="flex items-center space-x-3 text-gray-800 
-                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                        <i class="fas fa-briefcase w-5"></i>
-                        <span class="font-medium">Portfolio</span>
-                    </a>
-                </li> -->
-
-                <li>
-                    <a href="/contact.html" 
-                       class="flex items-center space-x-3 text-gray-800 
-                              hover:text-purple-700 transition-colors py-3 border-b border-gray-100">
-                        <i class="fas fa-envelope w-5"></i>
-                        <span class="font-medium">Contact</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Sidebar Footer -->
-        <div class="px-6 py-6 border-t">
-            <!-- <a href="#"
-               class="block w-full bg-gradient-to-r from-purple-700 to-gray-900 
-                      hover:from-purple-800 hover:to-gray-800 text-white font-semibold 
-                      px-5 py-3 rounded-lg transition duration-300 text-center">
-                Get Started
-            </a> -->
-        </div>
-
+        <span class="text-lg font-display font-700">Tech<span class="gradient-text">Labs</span></span>
+      </div>
+      <button id="close-sidebar" class="text-gray-700 hover:text-blue-600">
+        <i class="fas fa-times text-xl"></i>
+      </button>
     </div>
+    <nav class="flex-1 px-6 py-8">
+      <ul class="space-y-2">
+        <li><a href="index.html" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-home w-5"></i><span class="font-medium">Home</span></a></li>
+        <li><a href="about.html" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-user w-5"></i><span class="font-medium">About</span></a></li>
+        <li><a href="#services" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-cogs w-5"></i><span class="font-medium">Services</span></a></li>
+        <li><a href="#contact" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 py-3 px-4 rounded-xl hover:bg-blue-50 transition-all"><i class="fas fa-envelope w-5"></i><span class="font-medium">Contact</span></a></li>
+      </ul>
+    </nav>
+    <div class="px-6 py-6 border-t border-blue-50">
+      <a href="#contact" class="block w-full btn-primary text-white font-semibold px-5 py-3 rounded-xl text-center shadow-lg">Get Started</a>
+    </div>
+  </div>
 </div>
 
 
-    <!-- Hero Section -->
-    <section class="text-center px-6 md:px-20 py-16">
+<!-- ===================== HERO ===================== -->
+<section class="hero-bg text-center px-6 md:px-20 py-20 overflow-hidden">
+  <!-- Floating shapes -->
+  <div class="absolute top-32 left-8 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute top-40 right-8 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-        Build the Digital Infrastructure, 
-<br />
-        That Powers Sales<br class="text-red-500" />
-        Presence & Brands
-      </h1>
-      <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-10">
-       At Marvab Technology, we don’t just build websites, we create complete digital ecosystems that make your business sell more, dominate online, and establish an unshakable brand.
-
-      </p>
-
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
-
-       <a
-
-  href="#services"
-  class="bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition duration-300"
->
-  Get Started
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-  </svg>
-</a>
-
-
-
-        <a
-          href="/contact.html"
-          class="border border-gray-300 hover:border-gray-500 text-gray-800 font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition duration-300"
-        >
-          Discover More
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Hero Image -->
-      <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-lg">
-        <img
-          src="images/BACKGROUND.jpg"
-          alt="Tech Hero"
-          class="w-full h-auto object-cover"
-        />
-      </div>
-
-         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header Section -->
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Trusted by amazing startups
-            </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Join thousands of innovative companies that rely on our platform to scale their business
-            </p>
-        </div>
-
-        <!-- Logos Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
-            <!-- Layers -->
-            <div class="flex items-center space-x-3 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105">
-                <div class="w-8 h-8 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg flex items-center justify-center">
-                    <div class="w-4 h-4 bg-white rounded transform rotate-45"></div>
-                </div>
-                <span class="text-xl font-semibold text-gray-800">Layers</span>
-            </div>
-
-            <!-- Sisyphus -->
-            <div class="flex items-center space-x-3 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105">
-                <div class="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <span class="text-xl font-semibold text-gray-800">Sisyphus</span>
-            </div>
-
-            <!-- Circooles -->
-            <div class="flex items-center space-x-3 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105">
-                <div class="w-8 h-8 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full flex items-center justify-center relative">
-                    <div class="w-3 h-3 bg-white rounded-full"></div>
-                    <div class="w-2 h-2 bg-gray-400 rounded-full absolute top-1 right-1"></div>
-                </div>
-                <span class="text-xl font-semibold text-gray-800">Circooles</span>
-            </div>
-
-            <!-- Catalog -->
-            <div class="flex items-center space-x-3 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105">
-                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V19C3 20.1 3.9 21 5 21H11V19H5V3H13V9H21Z"/>
-                    </svg>
-                </div>
-                <span class="text-xl font-semibold text-gray-800">Catalog</span>
-            </div>
-
-            <!-- Quotient -->
-            <div class="flex items-center space-x-3 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105 col-span-2 md:col-span-1">
-                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span class="text-white font-bold text-sm">Q</span>
-                </div>
-                <span class="text-xl font-semibold text-gray-800">Quotient</span>
-            </div>
-        </div>
-
-        <!-- Stats Section -->
-        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div class="space-y-2">
-                <div class="text-3xl font-bold text-gray-900">500+</div>
-                <div class="text-sm text-gray-600">Companies</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-3xl font-bold text-gray-900">98%</div>
-                <div class="text-sm text-gray-600">Satisfaction</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-3xl font-bold text-gray-900">50M+</div>
-                <div class="text-sm text-gray-600">Users Served</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-3xl font-bold text-gray-900">24/7</div>
-                <div class="text-sm text-gray-600">Support</div>
-            </div>
-        </div>
+  <div class="relative z-10 max-w-5xl mx-auto">
+    <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium px-4 py-2 rounded-full mb-6 pulse-badge">
+      <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+      Venture &amp; Web Design Agency
     </div>
 
-    </section>
-
-  <!-- Our Approach Section -->
-
-    <div class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto text-center">
-    <h2 class="text-3xl sm:text-4xl font-bold mb-4">Our approach</h2>
-    <p class="text-gray-300 mb-12">
-      At Marvab Technology, we simplify digital success into three powerful approaches that guarantee results for every business we work with
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-800 leading-tight mb-6 text-gray-900">
+      Build the Digital Infrastructure<br/>
+      That <span class="gradient-text">Powers Your Business</span>
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
+      At Tech Labs, we transform ideas into impactful ventures. From idea validation to product prototyping, website development, and go-to-market strategies — we build foundations that make your business thrive.
     </p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+      <a href="#services" class="btn-primary text-white font-semibold px-8 py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
+        Explore Services <i class="fas fa-arrow-right"></i>
+      </a>
+      <a href="about.html" class="border-2 border-blue-200 hover:border-blue-400 text-gray-700 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl flex items-center justify-center gap-2 transition-all bg-white/80">
+        Learn More <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-blue-50">
+        <div class="text-3xl font-display font-800 gradient-text">50+</div>
+        <div class="text-sm text-gray-500 mt-1">Ventures Built</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-blue-50">
+        <div class="text-3xl font-display font-800 gradient-text">98%</div>
+        <div class="text-sm text-gray-500 mt-1">Satisfaction</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-blue-50">
+        <div class="text-3xl font-display font-800 gradient-text">12wk</div>
+        <div class="text-sm text-gray-500 mt-1">Avg. Delivery</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-blue-50">
+        <div class="text-3xl font-display font-800 gradient-text">24/7</div>
+        <div class="text-sm text-gray-500 mt-1">Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRUSTED BY ===================== -->
+<section class="bg-white py-12 px-6 md:px-16 border-y border-blue-50">
+  <p class="text-center text-sm text-gray-400 uppercase tracking-widest mb-8 font-medium">Trusted by amazing startups</p>
+  <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 grayscale opacity-60 hover:opacity-80 transition-opacity">
+    <span class="text-xl font-display font-700 text-gray-500">Etegram</span>
+    <span class="text-xl font-display font-700 text-gray-500">WAV.ng</span>
+    <span class="text-xl font-display font-700 text-gray-500">Skillarn</span>
+    <span class="text-xl font-display font-700 text-gray-500">AmpePay</span>
+    <span class="text-xl font-display font-700 text-gray-500">Moniecheap</span>
+  </div>
+</section>
+
+
+<!-- ===================== OUR APPROACH ===================== -->
+<section class="dark-section text-white py-20 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-400 text-sm uppercase tracking-widest mb-3 font-medium">How We Work</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 mb-4">Our Approach</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">We simplify digital success into four powerful phases that guarantee results for every business we partner with.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Card 1 -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fas fa-lightbulb text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="text-lg font-display font-700 mb-2">Idea Validation</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">We identify core problems, conduct market research, and define your MVP to ensure your concept is ready for the market.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fas fa-pencil-ruler text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="text-lg font-display font-700 mb-2">Prototyping</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">We create wireframes and interactive mockups, iterating with your feedback to align on user needs and business goals.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fas fa-laptop-code text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="text-lg font-display font-700 mb-2">Build & Launch</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">We design and develop responsive, high-performance websites and apps with hosting, SEO, and custom integrations.</p>
+      </div>
+      <!-- Card 4 -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fas fa-chart-line text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="text-lg font-display font-700 mb-2">Go-to-Market</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">We craft tailored GTM strategies — market segmentation, positioning, channel selection, campaigns, and KPI tracking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== SCOPE OF SERVICES / ACCORDION ===================== -->
+<section class="bg-blue-50 py-20 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12">
+    <!-- Left -->
+    <div class="w-full lg:w-1/2">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">What We Deliver</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-4 leading-tight">
+        Built for Founders &<br/>Growing Businesses
+      </h2>
+      <p class="text-gray-600 mb-8 leading-relaxed">
+        Comprehensive digital infrastructure solutions designed to help your business grow, scale, and dominate your market.
+      </p>
+
+      <div class="space-y-3" id="accordion">
+        <!-- Accordion items -->
+        <div class="bg-white rounded-xl border border-blue-100 overflow-hidden">
+          <button onclick="toggleAcc('acc1')" class="w-full px-5 py-4 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center"><i class="fas fa-search text-white text-xs"></i></div>
+              <span class="font-semibold text-gray-900">Idea Validation</span>
+            </div>
+            <i id="acc1-icon" class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div id="acc1" class="accordion-content">
+            <p class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">Identify your core problem, conduct market research, test hypotheses with customer feedback, and define your MVP features — all in 2 weeks.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-blue-100 overflow-hidden">
+          <button onclick="toggleAcc('acc2')" class="w-full px-5 py-4 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center"><i class="fas fa-draw-polygon text-white text-xs"></i></div>
+              <span class="font-semibold text-gray-900">Prototyping</span>
+            </div>
+            <i id="acc2-icon" class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div id="acc2" class="accordion-content">
+            <p class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">Wireframes, clickable interactive mockups, and a feedback loop with stakeholders to ensure every design decision is validated before development begins.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-blue-100 overflow-hidden">
+          <button onclick="toggleAcc('acc3')" class="w-full px-5 py-4 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center"><i class="fas fa-globe text-white text-xs"></i></div>
+              <span class="font-semibold text-gray-900">Website & Web App Design</span>
+            </div>
+            <i id="acc3-icon" class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div id="acc3" class="accordion-content">
+            <p class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">Landing page + 5 custom pages, 1-year free hosting, mobile responsiveness, contact forms, standard SEO, blog, social media integration, 1 month of free support, and 30 custom emails.</p>
+          </div>
+        </div>
+
+        <div class="bg-blue-600 rounded-xl overflow-hidden">
+          <button onclick="toggleAcc('acc4')" class="w-full px-5 py-4 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center"><i class="fas fa-rocket text-white text-xs"></i></div>
+              <span class="font-semibold text-white">Go-to-Market Strategy</span>
+            </div>
+            <i id="acc4-icon" class="fas fa-chevron-down text-white/70 transition-transform duration-300"></i>
+          </button>
+          <div id="acc4" class="accordion-content">
+            <p class="px-5 pb-4 text-blue-100 text-sm leading-relaxed">Market segmentation, compelling positioning, channel strategy, initial marketing campaigns, and KPI tracking — everything you need to launch with impact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Timeline -->
+    <div class="w-full lg:w-1/2">
+      <div class="bg-white rounded-3xl p-8 shadow-xl border border-blue-100">
+        <h3 class="text-xl font-display font-700 mb-2 text-gray-900">Project Timeline</h3>
+        <p class="text-gray-500 text-sm mb-8">Complete project delivery in just <strong>12 weeks</strong></p>
+
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="font-medium text-gray-700"><span class="inline-block w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-xs flex items-center justify-center mr-2 font-bold">1</span>Idea Validation</span>
+              <span class="text-blue-600 font-semibold">2 weeks</span>
+            </div>
+            <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full timeline-bar rounded-full" style="width:16.6%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="font-medium text-gray-700"><span class="inline-block w-6 h-6 rounded-full bg-purple-100 text-purple-600 text-xs flex items-center justify-center mr-2 font-bold">2</span>Prototyping</span>
+              <span class="text-purple-600 font-semibold">3 weeks</span>
+            </div>
+            <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" style="width:25%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="font-medium text-gray-700"><span class="inline-block w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-xs flex items-center justify-center mr-2 font-bold">3</span>Website / Web App Development</span>
+              <span class="text-blue-600 font-semibold">5 weeks</span>
+            </div>
+            <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full timeline-bar rounded-full" style="width:41.6%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="font-medium text-gray-700"><span class="inline-block w-6 h-6 rounded-full bg-purple-100 text-purple-600 text-xs flex items-center justify-center mr-2 font-bold">4</span>GTM Strategies</span>
+              <span class="text-purple-600 font-semibold">2 weeks</span>
+            </div>
+            <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" style="width:16.6%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-blue-50 flex items-center justify-between">
+          <div>
+            <div class="text-2xl font-display font-800 gradient-text">$2,000+</div>
+            <div class="text-gray-500 text-sm">Starting price, no hidden fees</div>
+          </div>
+          <a href="#contact" class="btn-primary text-white px-5 py-3 rounded-xl font-semibold text-sm shadow-lg">Start Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== SERVICES ===================== -->
+<section class="dark-section py-20 px-6 md:px-16" id="services">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-400 text-sm uppercase tracking-widest mb-3 font-medium">What We Offer</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-white mb-4">Our Services</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Powerful digital solutions designed to help your business grow, scale, and succeed.</p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Service cards -->
+      <div class="service-card bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-code text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Website & Web App Development</h4>
+          <p class="text-blue-200 text-sm leading-relaxed">Fast, responsive, modern websites that look great and convert visitors into customers.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-blue-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-purple-700 to-purple-900 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-mobile-alt text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Mobile App Development</h4>
+          <p class="text-purple-200 text-sm leading-relaxed">From concept to launch — intuitive, high-performing, and scalable mobile apps for iOS & Android.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-purple-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-blue-700 to-purple-800 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-pencil-ruler text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">UI/UX Design & Prototyping</h4>
+          <p class="text-blue-200 text-sm leading-relaxed">Wireframes, interactive mockups, and polished interfaces designed with user journeys in mind.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-blue-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-purple-700 to-blue-800 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-bullhorn text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Branding & Identity</h4>
+          <p class="text-purple-200 text-sm leading-relaxed">Professional logos, brand kits, and strategies that make your business unforgettable.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-purple-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-blue-700 to-blue-900 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-shopping-cart text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">E-commerce Development</h4>
+          <p class="text-blue-200 text-sm leading-relaxed">Platforms designed to convert visitors into loyal customers and scale with your growth.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-blue-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-purple-700 to-purple-900 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-filter text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Go-to-Market Strategy</h4>
+          <p class="text-purple-200 text-sm leading-relaxed">Market segmentation, channel strategy, campaigns, and KPIs that drive growth from day one.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-purple-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-blue-600 to-purple-800 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-cogs text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Custom Software Development</h4>
+          <p class="text-blue-200 text-sm leading-relaxed">Tailored software built specifically for your business operations — scalable, secure, and efficient.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-blue-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+
+      <div class="service-card bg-gradient-to-br from-purple-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <i class="fas fa-share-alt text-white text-lg"></i>
+          </div>
+          <h4 class="text-white font-display font-700 mb-2">Digital Marketing</h4>
+          <p class="text-purple-200 text-sm leading-relaxed">Smart campaigns, social media management, and content strategies that attract and convert leads.</p>
+        </div>
+        <a href="#contact" class="mt-4 text-purple-300 text-sm font-semibold hover:text-white flex items-center gap-1 group transition-colors">Start with us <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== INDUSTRIES ===================== -->
+<section class="bg-white py-20 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">Sectors We Serve</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-4">Industries We Cover</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">From fintech to healthcare, we bring deep expertise across verticals.</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 hover:border-blue-400 hover:bg-blue-100 transition-all">
+        <i class="fas fa-landmark text-blue-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Finance</span>
+      </div>
+      <div class="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-3 hover:border-purple-400 hover:bg-purple-100 transition-all">
+        <i class="fas fa-chart-bar text-purple-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Investment & Insurance</span>
+      </div>
+      <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 hover:border-blue-400 hover:bg-blue-100 transition-all">
+        <i class="fas fa-seedling text-blue-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Agriculture</span>
+      </div>
+      <div class="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-3 hover:border-purple-400 hover:bg-purple-100 transition-all">
+        <i class="fas fa-link text-purple-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Blockchain</span>
+      </div>
+      <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 hover:border-blue-400 hover:bg-blue-100 transition-all">
+        <i class="fas fa-briefcase text-blue-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Consulting & Services</span>
+      </div>
+      <div class="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-3 hover:border-purple-400 hover:bg-purple-100 transition-all">
+        <i class="fas fa-industry text-purple-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Manufacturing</span>
+      </div>
+      <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 hover:border-blue-400 hover:bg-blue-100 transition-all">
+        <i class="fas fa-wifi text-blue-600"></i>
+        <span class="font-medium text-gray-800 text-sm">IoT</span>
+      </div>
+      <div class="flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-xl px-4 py-3 hover:border-purple-400 hover:bg-purple-100 transition-all">
+        <i class="fab fa-bitcoin text-purple-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Crypto & Web3</span>
+      </div>
+      <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 hover:border-blue-400 hover:bg-blue-100 transition-all col-span-2 sm:col-span-1">
+        <i class="fas fa-heartbeat text-blue-600"></i>
+        <span class="font-medium text-gray-800 text-sm">Healthcare & Medicals</span>
+      </div>
+      <div class="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl px-4 py-3 col-span-2 sm:col-span-2 lg:col-span-3 justify-center">
+        <i class="fas fa-plus text-white"></i>
+        <span class="font-medium text-white text-sm">And many more industries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== PORTFOLIO ===================== -->
+<section class="bg-blue-50 py-20 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <p class="text-blue-600 text-sm uppercase tracking-widest mb-2 font-medium">Our Work</p>
+        <h2 class="text-3xl font-display font-700 text-gray-900">Sample Projects</h2>
+      </div>
+      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg">View All <i class="fas fa-arrow-right text-xs"></i></a>
+    </div>
+    <p class="text-gray-500 text-sm mb-10 max-w-2xl">We craft intuitive, visually stunning, and performance-driven digital solutions that empower brands to stand out and succeed.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <a href="https://hostcommunities.ng/" target="_blank" class="group bg-white rounded-2xl overflow-hidden border border-blue-100 hover:border-blue-400 hover:shadow-xl transition-all">
+        <div class="h-40 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+          <i class="fas fa-home text-4xl text-blue-400"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-display font-700 text-gray-900 mb-1">Hostcommunities.ng</h4>
+          <p class="text-gray-500 text-xs leading-relaxed">A web and mobile platform empowering mining host communities to monitor and report on community development projects.</p>
+        </div>
+      </a>
+
+      <a href="https://etegram.com/" target="_blank" class="group bg-white rounded-2xl overflow-hidden border border-blue-100 hover:border-blue-400 hover:shadow-xl transition-all">
+        <div class="h-40 bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+          <i class="fas fa-credit-card text-4xl text-purple-400"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-display font-700 text-gray-900 mb-1">Etegram.com</h4>
+          <p class="text-gray-500 text-xs leading-relaxed">Accept payments seamlessly and securely — a comprehensive banking and payment solution trusted by 2,000+ businesses.</p>
+        </div>
+      </a>
+
+      <a href="https://skillarn.com/" target="_blank" class="group bg-white rounded-2xl overflow-hidden border border-blue-100 hover:border-blue-400 hover:shadow-xl transition-all">
+        <div class="h-40 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-4xl text-blue-400"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-display font-700 text-gray-900 mb-1">Skillarn.com</h4>
+          <p class="text-gray-500 text-xs leading-relaxed">Accelerate your creative career — a learn, grow, share & connect platform for creative professionals.</p>
+        </div>
+      </a>
+
+      <a href="https://amplepay.ng/" target="_blank" class="group bg-white rounded-2xl overflow-hidden border border-blue-100 hover:border-blue-400 hover:shadow-xl transition-all">
+        <div class="h-40 bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+          <i class="fas fa-money-bill-wave text-4xl text-purple-400"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-display font-700 text-gray-900 mb-1">Amplepay.ng</h4>
+          <p class="text-gray-500 text-xs leading-relaxed">The infinite bills payment solution — top up airtime, pay utilities, and buy exam pins on the go.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== PRICING ===================== -->
+<section class="dark-section py-20 px-6 md:px-16" id="pricing">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-blue-400 text-sm uppercase tracking-widest mb-3 font-medium">Investment</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-white mb-4">Simple, Transparent Pricing</h2>
+      <p class="text-gray-400 max-w-xl mx-auto">Starting from $2,000 USD — all deliverables included with no hidden fees.</p>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Equip -->
-     <div class="border border-purple-700 rounded-lg p-6 text-left hover:shadow-lg transition">
-  <div class="mb-4">
-    <!-- Icon: Replace with your own SVG or icon component -->
-    <svg class="w-10 h-10 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path d="M3 7h18M3 12h18M3 17h18"/>
-    </svg>
-  </div>
-  <h3 class="text-xl font-bold mb-2">Build the Infrastructure</h3>
-  <p class="text-gray-300">
-    We start by laying the foundation your business needs to thrive — a professional website, strong branding, e-commerce systems, and sales funnels. This digital backbone ensures your business is ready to sell, scale, and succeed.
-  </p>
-</div>
-
-
-      <!-- Educate -->
-<div class="border border-purple-700 rounded-lg p-6 text-left hover:shadow-lg transition">     
-     <div class="mb-4">
-          <!-- Icon: Replace with your own SVG or icon component -->
-    <svg class="w-10 h-10 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M12 20h9" />
-            <path d="M3 4h18v6H3z" />
-            <path d="M12 10v10" />
-          </svg>
+      <!-- Starter -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500 transition-all group">
+        <div class="bg-gradient-to-br from-blue-700 to-blue-900 p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fas fa-rocket text-2xl text-white"></i>
+            <h3 class="text-xl font-display font-700 text-white">Starter</h3>
+          </div>
+          <p class="text-blue-200 text-sm mb-4">Perfect for early-stage startups</p>
+          <div class="text-3xl font-display font-800 text-white">$2,000</div>
+          <div class="text-blue-300 text-sm">one-time, no hidden fees</div>
         </div>
-        <h3 class="text-xl font-bold mb-2">Fuel with Content & Marketing</h3>
-        <p class="text-gray-300">
-Infrastructure without fuel doesn’t move. That’s why we provide continuous content creation, digital marketing, and social media management. Graphics, videos, campaigns, and storytelling are designed to attract, engage, and convert your audience into paying customers.
-        </p>
+        <div class="p-6 space-y-3">
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Idea validation & market research</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Wireframes & interactive mockup</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Landing page + 5 custom pages</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">1-year free hosting</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">30 custom emails + SEO</span></div>
+          <a href="#contact" class="mt-4 block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors">Get Started</a>
+        </div>
       </div>
 
-      <!-- Empower -->
-<div class="border border-purple-700 rounded-lg p-6 text-left hover:shadow-lg transition">     
-        <div class="mb-4">
-          <!-- Icon: Replace with your own SVG or icon component -->
-    <svg class="w-10 h-10 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 13v5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-5M12 17v-6m0 0l3 3m-3-3l-3 3" />
-          </svg>
+      <!-- Growth (Popular) -->
+      <div class="bg-white/5 border-2 border-purple-500 rounded-2xl overflow-hidden relative shadow-2xl shadow-purple-900/30">
+        <div class="absolute top-0 right-0 bg-purple-500 text-white px-4 py-1 text-xs font-bold rounded-bl-xl">POPULAR</div>
+        <div class="bg-gradient-to-br from-purple-700 to-purple-900 p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fas fa-star text-2xl text-white"></i>
+            <h3 class="text-xl font-display font-700 text-white">Growth</h3>
+          </div>
+          <p class="text-purple-200 text-sm mb-4">Ideal for growing businesses</p>
+          <div class="text-3xl font-display font-800 text-white">$4,500</div>
+          <div class="text-purple-300 text-sm">one-time, all-inclusive</div>
         </div>
-        <h3 class="text-xl font-bold mb-2">Sustain & Scale</h3>
-        <p class="text-gray-300">
-We don’t stop at launch. Our retainer services keep your business running smoothly while preparing you for the next level. From mobile apps to custom software, we help you expand, dominate your niche, and build a lasting digital presence.
-        </p>
+        <div class="p-6 space-y-3">
+          <div class="flex items-start gap-2"><i class="fas fa-check text-purple-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Everything in Starter</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-purple-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Full branding & identity kit</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-purple-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">E-commerce or web app</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-purple-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">GTM strategy & launch campaigns</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-purple-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">3 months post-launch support</span></div>
+          <a href="#contact" class="mt-4 block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl transition-colors">Get Started</a>
+        </div>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500 transition-all group">
+        <div class="bg-gradient-to-br from-blue-800 to-purple-900 p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fas fa-crown text-2xl text-white"></i>
+            <h3 class="text-xl font-display font-700 text-white">Enterprise</h3>
+          </div>
+          <p class="text-blue-200 text-sm mb-4">For established brands scaling up</p>
+          <div class="text-3xl font-display font-800 text-white">Custom</div>
+          <div class="text-blue-300 text-sm">tailored to your needs</div>
+        </div>
+        <div class="p-6 space-y-3">
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Everything in Growth</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Mobile app development</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Custom software solutions</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Dedicated account manager</span></div>
+          <div class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1 text-sm"></i><span class="text-gray-300 text-sm">Ongoing retainer support</span></div>
+          <a href="#contact" class="mt-4 block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-xl transition-colors">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-blue-900/30 border border-blue-800 rounded-xl p-4 text-center">
+      <p class="text-blue-300 text-sm"><i class="fas fa-info-circle mr-2"></i>All packages include <strong class="text-white">idea validation, prototyping, website development, and GTM strategy</strong> — the complete 12-week delivery framework.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="bg-white py-20 px-6 md:px-16">
+  <div class="max-w-5xl mx-auto">
+    <div class="bg-gradient-to-br from-blue-900 to-purple-900 rounded-3xl p-10 md:p-16 text-white shadow-2xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-display font-700 mb-4">Why Choose Tech Labs?</h2>
+        <p class="text-blue-200 max-w-xl mx-auto">We combine expertise, creativity, and technology to deliver outstanding results.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/30 flex items-center justify-center flex-shrink-0"><i class="fas fa-medal text-blue-300"></i></div>
+          <div><h3 class="font-display font-700 mb-1">Proven Expertise</h3><p class="text-blue-200 text-sm">Proven track record of delivering high-quality venture and product designs across industries.</p></div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/30 flex items-center justify-center flex-shrink-0"><i class="fas fa-sliders-h text-purple-300"></i></div>
+          <div><h3 class="font-display font-700 mb-1">Full Customization</h3><p class="text-blue-200 text-sm">Tailored solutions built precisely to meet your unique business needs and goals.</p></div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/30 flex items-center justify-center flex-shrink-0"><i class="fas fa-headset text-blue-300"></i></div>
+          <div><h3 class="font-display font-700 mb-1">End-to-End Support</h3><p class="text-blue-200 text-sm">Comprehensive services from concept to execution — and beyond launch.</p></div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/30 flex items-center justify-center flex-shrink-0"><i class="fas fa-heart text-purple-300"></i></div>
+          <div><h3 class="font-display font-700 mb-1">Customer-Centric</h3><p class="text-blue-200 text-sm">Dedicated to ensuring your satisfaction and long-term success at every step.</p></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
- <section class="bg-gray-50 py-16 px-4 md:px-16">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12">
-            <!-- Left Content -->
-            <div class="w-full lg:w-1/2">
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        Made for African Founders & <br>Businesses
-                    </h2>
-                </div>
-                <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-              Discover digital infrastructure solutions to grow, scale, and dominate your market.
-                </p>
-                
-                <!-- Accordion/Expandable Sections -->
-                <div class="space-y-4">
-                    <!-- Accelerate Section -->
-                    <div class="bg-blue-100 rounded-lg">
-                        <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleAccordion('accelerate')">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                                    </svg>
-                                </div>
-                                <span class="font-semibold text-gray-900">Build</span>
-                            </div>
-                            <svg id="accelerate-icon" class="w-5 h-5 text-gray-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div id="accelerate-content" class="px-6 pb-4 hidden">
-                            <p class="text-gray-700">Lay a solid foundation with websites, branding, e-commerce, and digital systems that position your business for success</p>
-                        </div>
-                    </div>
-
-                    <!-- Raise Section -->
-                    <div class="bg-white border border-gray-200 rounded-lg">
-                        <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleAccordion('raise')">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
-                                    </svg>
-                                </div>
-                                <span class="font-semibold text-gray-900">Amplify</span>
-                            </div>
-                            <svg id="raise-icon" class="w-5 h-5 text-gray-600 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        <div id="raise-content" class="px-6 pb-4 hidden">
-                            <p class="text-gray-700">Boost your visibility with content creation, social media management, and marketing strategies that drive sales and customer loyalty.
-.</p>
-                        </div>
-                    </div>
-
-                    <!-- Nomadic Section -->
-                    <div class="bg-white border border-gray-200 rounded-lg">
-                        <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleAccordion('nomadic')">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
-                                    </svg>
-                                </div>
-                                <span class="font-semibold text-gray-900">Scale</span>
-                            </div>
-                            <svg id="nomadic-icon" class="w-5 h-5 text-gray-600 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        <div id="nomadic-content" class="px-6 pb-4 hidden">
-                            <p class="text-gray-700">Expand effortlessly with sales funnels, mobile apps, and custom software designed to take your business beyond limits.
-</p>
-                        </div>
-                    </div>
-
-                    <!-- Match Section -->
-                    <div class="bg-white border border-gray-200 rounded-lg">
-                        <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleAccordion('match')">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                                <span class="font-semibold text-gray-900">Thrive</span>
-                            </div>
-                            <svg id="match-icon" class="w-5 h-5 text-gray-600 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        <div id="match-content" class="px-6 pb-4 hidden">
-                            <p class="text-gray-700">Stay competitive with ongoing support, management, and digital presence that keeps your brand strong and profitable..</p>
-                        </div>
-                    </div>
-                </div>
-
-               <!-- <button class="mt-8 bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all group">
-  Learn More
-  <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-  </svg>
-</button> -->
+</section>
 
 
-            </div>
-
-            <!-- Right Image -->
-            <div class="w-full lg:w-1/2">
-                <div class="rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="/images/Made for African founders _ startups.png" alt="African founders collaborating" class="w-full h-full object-cover" />
-                </div>
-            </div>
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="bg-blue-50 py-20 px-6 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">Social Proof</p>
+      <h2 class="text-3xl font-display font-700 text-gray-900">What Our Clients Say</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="bg-white rounded-2xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">CO</div>
+          <div><p class="font-semibold text-gray-900 text-sm">Chinedu Okafor</p><p class="text-gray-500 text-xs">Operations Manager</p></div>
+          <i class="fas fa-quote-right ml-auto text-blue-200"></i>
         </div>
-    </section>
+        <p class="text-gray-600 text-sm leading-relaxed">Working with Tech Labs has been a game changer for our logistics operations. Their team built custom software that helped us track deliveries in real time, cutting errors by over 40%.</p>
+      </div>
 
-   <!-- Original Section -->
-<section class="bg-white py-12 px-4 md:px-16">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
-    <!-- Image -->
+      <div class="bg-white rounded-2xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">AU</div>
+          <div><p class="font-semibold text-gray-900 text-sm">Amara Umeh</p><p class="text-gray-500 text-xs">Retail Store Owner</p></div>
+          <i class="fas fa-quote-right ml-auto text-purple-200"></i>
+        </div>
+        <p class="text-gray-600 text-sm leading-relaxed">As a small business owner, finding affordable and reliable tech partners has always been tough — until I found Tech Labs. Their support is top-notch and the software they built is a blessing.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">EC</div>
+          <div><p class="font-semibold text-gray-900 text-sm">Emily Carter</p><p class="text-gray-500 text-xs">Sales Director</p></div>
+          <i class="fas fa-quote-right ml-auto text-blue-200"></i>
+        </div>
+        <p class="text-gray-600 text-sm leading-relaxed">Tech Labs understood our vision right from the first meeting. The CRM solution they built has improved our client management and communication significantly. Love their attention to detail.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">RS</div>
+          <div><p class="font-semibold text-gray-900 text-sm">Ravi Sharma</p><p class="text-gray-500 text-xs">CEO of FastBite</p></div>
+          <i class="fas fa-quote-right ml-auto text-purple-200"></i>
+        </div>
+        <p class="text-gray-600 text-sm leading-relaxed">We needed a mobile app urgently for our food delivery service, and Tech Labs delivered ahead of schedule without compromising quality. The app has received fantastic feedback from our users.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-lg transition-all">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">TO</div>
+          <div><p class="font-semibold text-gray-900 text-sm">Tolu Ogunleye</p><p class="text-gray-500 text-xs">Digital Marketing Manager</p></div>
+          <i class="fas fa-quote-right ml-auto text-blue-200"></i>
+        </div>
+        <p class="text-gray-600 text-sm leading-relaxed">The website redesign Tech Labs did exceeded all expectations. The new design has boosted our online engagement and made it easier for customers to navigate our services. They're the real deal.</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="text-4xl font-display font-800 text-white mb-2">4.9★</div>
+          <p class="text-blue-100 text-sm mb-4">Average client rating across all projects</p>
+          <p class="text-white font-display font-600 text-lg">"Tech Labs turned our idea into a reality faster than we thought possible."</p>
+          <p class="text-blue-200 text-sm mt-2">— Tan King, IT Manager</p>
+        </div>
+        <a href="#contact" class="mt-6 inline-flex items-center gap-2 bg-white text-blue-700 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-blue-50 transition-colors">
+          Work with us <i class="fas fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== GLOBAL REACH ===================== -->
+<section class="bg-white py-20 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
     <div class="w-full md:w-1/2">
-      <img src="/images/portrait-successful-businesspeople-sitting-cafe-table.png" alt="Founders image" class="rounded-3xl w-full object-cover" />
+      <p class="text-blue-600 text-sm uppercase tracking-widest mb-3 font-medium">Global Reach</p>
+      <h2 class="text-3xl md:text-4xl font-display font-700 text-gray-900 mb-4">Our Clients Are Everywhere Around the Globe</h2>
+      <div class="grid grid-cols-3 gap-3 mt-6">
+        <div class="flex items-center gap-2 bg-blue-50 rounded-xl px-3 py-2"><span class="text-lg">🇺🇸</span><span class="text-sm font-medium text-gray-700">US</span></div>
+        <div class="flex items-center gap-2 bg-purple-50 rounded-xl px-3 py-2"><span class="text-lg">🇬🇧</span><span class="text-sm font-medium text-gray-700">UK</span></div>
+        <div class="flex items-center gap-2 bg-blue-50 rounded-xl px-3 py-2"><span class="text-lg">🇪🇺</span><span class="text-sm font-medium text-gray-700">Europe</span></div>
+        <div class="flex items-center gap-2 bg-purple-50 rounded-xl px-3 py-2"><span class="text-lg">🇨🇦</span><span class="text-sm font-medium text-gray-700">Canada</span></div>
+        <div class="flex items-center gap-2 bg-blue-50 rounded-xl px-3 py-2"><span class="text-lg">🌏</span><span class="text-sm font-medium text-gray-700">Asia</span></div>
+        <div class="flex items-center gap-2 bg-purple-50 rounded-xl px-3 py-2"><span class="text-lg">🌍</span><span class="text-sm font-medium text-gray-700">Africa</span></div>
+      </div>
     </div>
-
-    <!-- Content -->
-    <div class="w-full md:w-1/2">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-        Building Digital Infrastructure for Businesses <br /> and Founders in Emerging Markets
-      </h2>
-      <p class="mt-4 text-gray-700 text-base md:text-lg leading-relaxed">
-At Marvab Technology, we are committed to empowering businesses and entrepreneurs with the digital infrastructure they need to sell more, scale faster, and build unforgettable brands.
-
-We go beyond services — our all-in-one solutions combine websites, branding, content creation, marketing, e-commerce, and custom software into a complete ecosystem that positions African founders and businesses for global relevance and lasting growth.
-      </p>
-                    <!-- <button class="mt-8 bg-gradient-to-r from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all group">
-  Learn More
-  <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-  </svg>
-</button> -->
-
-
+    <div class="w-full md:w-1/2 flex justify-center">
+      <div class="relative w-80 h-64 rounded-3xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center shadow-xl">
+        <i class="fas fa-globe text-8xl text-blue-300 opacity-60"></i>
+        <div class="absolute top-6 right-6 bg-white rounded-xl px-3 py-1.5 shadow text-xs font-semibold text-blue-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>Live globally</div>
+      </div>
     </div>
   </div>
 </section>
 
 
-<section class="bg-gray-900 py-20" id="services">
-  <div class="max-w-6xl mx-auto px-6 lg:px-8">
-    <!-- Section Title -->
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Our Services</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-        Powerful digital solutions designed to help your business grow, scale, and succeed.
-      </p>
-    </div>
-
-    <!-- Services Grid -->
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      
-      <!-- Website & Web App Development -->
-      <div class="bg-gradient-to-br from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-code"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Website & Web App Development</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          We build fast, responsive, and modern websites that not only look great but work flawlessly.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- Mobile App Development -->
-      <div class="bg-gradient-to-br from-teal-600 to-gray-900 hover:from-teal-700 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-mobile-alt"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Mobile App Development</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          From concept to launch, we create mobile apps that are intuitive, high-performing, and scalable.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- UI/UX Design -->
-      <div class="bg-gradient-to-br from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-pencil-ruler"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">UI/UX Design</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          We design experiences that feel as good as they look. With clean interfaces and thoughtful user journeys.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- Branding -->
-      <div class="bg-gradient-to-br from-teal-600 to-gray-900 hover:from-teal-700 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-bullhorn"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Branding</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          Your brand is more than a logo — it's your voice, story, and vibe. We help you build a memorable identity.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- E-commerce Development -->
-      <div class="bg-gradient-to-br from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-shopping-cart"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">E-commerce Development</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          We build e-commerce platforms designed to convert visitors into loyal customers and scale with your business.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- Social Media Management / Marketing -->
-      <div class="bg-gradient-to-br from-teal-600 to-gray-900 hover:from-teal-700 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-share-alt"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Social Media Management</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          Build your online presence with targeted campaigns and content that engage, convert, and grow your audience.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- Custom Software Development -->
-      <div class="bg-gradient-to-br from-purple-700 to-gray-900 hover:from-purple-800 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fas fa-cogs"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Custom Software Development</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          We design and develop custom software tailored to your unique business needs — scalable and secure.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-      <!-- Shopify -->
-      <div class="bg-gradient-to-br from-teal-600 to-gray-900 hover:from-teal-700 hover:to-gray-800 text-white rounded-xl p-6 flex flex-col justify-between hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm">
-            <i class="fab fa-shopify"></i>
-          </div>
-          <h4 class="text-white font-semibold text-sm">Shopify Development</h4>
-        </div>
-        <p class="text-white/90 text-xs font-light mb-4 leading-relaxed">
-          We build Shopify platforms that combine seamless shopping with beautiful design and features that sell.
-        </p>
-        <a class="text-white text-xs font-semibold hover:underline flex items-center space-x-1 group" href="#">
-          Start with us <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-  <!-- Our Product Section -->
-<section class="max-w-7xl mx-auto px-6 sm:px-10 py-16">
- <div class="flex justify-between items-center max-w-5xl mb-6 pl-4 pr-4">
-  <h2 class="text-2xl sm:text-3xl font-semibold text-black">
-    Our Portfolio
-  </h2>
-  <button class="inline-block bg-white text-black rounded-full px-4 py-1 text-xs font-semibold hover:bg-gray-200 transition">
-    <i class="fas fa-arrow-right ml-1"></i>
-  </button>
-</div>
-
-<p class="max-w-3xl text-[9px] text-black font-light mb-10 pl-4 pr-4">
-  We craft intuitive, visually stunning, and performance driven digital solutions that empower brands to stand out, engage users, and achieve lasting success.
-</p>
-
-
-  <!-- First 4 portfolio items -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <!-- Card 1 -->
-    <a href="https://azinnovativeventure.com/" target="_blank" rel="noopener noreferrer">
-      <div class="space-y-2">
-        <img alt="Screenshot of Beauty website" class="rounded-lg w-full" height="120" src="images/waste.png" width="280" />
-        <h4 class="text-black font-semibold text-sm">Azinnovativeventure</h4>
-        <p class="text-black text-xs font-light leading-tight">
-          ​AZ Innovations Venture Limited is a Nigerian social enterprise transforming plastic waste into educational opportunities. Through their flagship “Trash-for-Education” initiative, they empower underserved communities to exchange recyclable waste for essential school items like notebooks, uniforms, and PTA levy support.
-        </p>
-      </div>
-    </a>
-
-    <!-- Card 2 -->
-    <a href="https://afrifoodxpress.com.ng/" target="_blank" rel="noopener noreferrer">
-      <div class="space-y-2">
-        <img alt="FlashBills website" class="rounded-lg w-full" height="120" src="images/afrfoodexpresspicture.jpeg" width="280" />
-        <h4 class="text-black font-semibold text-sm">Afrifoodxpress</h4>
-        <p class="text-black text-xs font-light leading-tight">
-AfriFoodXpress is an e-commerce platform that makes it easy to buy authentic African raw foods, with reliable delivery and export services worldwide.        </p>
-      </div>
-    </a>
-
-    <!-- Card 3 -->
-    <a href="https://techfield.africa/" target="_blank" rel="noopener noreferrer">
-      <div class="space-y-2">
-        <img alt="Techfield website" class="rounded-lg w-full" height="120" src="images/TechField.png" width="280" />
-        <h4 class="text-black font-semibold text-sm">Techfield</h4>
-        <p class="text-black text-xs font-light leading-tight">
-          ​TechField Africa is a venture support platform dedicated to empowering early-stage African founders. Their mission is to democratize access to global venture-building opportunities, focusing on impact-driven entrepreneurs tackling significant challenges aligned with the UN Sustainable Development Goals.
-        </p>
-      </div>
-    </a>
-
-    <!-- Card 4 -->
-    <a href="https://play.google.com/store/apps/details?id=net.docu2data.sentrified_app&pcampaignid=web_share" target="_blank" rel="noopener noreferrer">
-      <div class="space-y-2">
-        <img alt="Sentrified website" class="rounded-lg w-full" height="120" src="images/sentrifiied.png" width="280" />
-        <h4 class="text-black font-semibold text-sm">Sentrified</h4>
-        <p class="text-black text-xs font-light leading-tight">
-          ​Sentrified is a comprehensive estate management and access control application designed to simplify and enhance the management of residential communities.
-        </p>
-      </div>
-    </a>
-  </div>
-
-  <!-- Centered Uvicol card -->
-  <div class="flex justify-center mt-6">
-    <a href="https://uvicol.com/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-1/2 md:w-1/3">
-      <div class="space-y-2">
-        <img alt="Uvicol website" class="rounded-lg w-full" height="120" src="images/E-cok.png" width="280" />
-        <h4 class="text-black font-semibold text-sm">Uvicol</h4>
-        <p class="text-black text-xs font-light leading-tight">
-          Uvico is the official eCommerce platform of Uvico Shopping Mall, bringing your favorite stores online for seamless shopping, fast delivery, and a connected mall experience anytime, anywhere.
-        </p>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- packages -->
-
- <!-- Our Packages Section -->
-        <div class="max-w-7xl mx-auto mb-20 px-6 md:px-12 lg:px-16"  >
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                    Our Packages
-                </h2>
-                <p class="text-lg md:text-xl text-gray-600">
-                    We make it simple by bundling all our services into flexible packages
-                </p>
-            </div>
-
-            <!-- Pricing Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Basic Package -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                    <div class="bg-gradient-to-br from-emerald-400 to-emerald-600 p-6 text-white">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fas fa-rocket text-2xl"></i>
-                            <h3 class="text-2xl font-bold">Basic Pack</h3>
-                        </div>
-                        <p class="text-emerald-100 text-sm">Perfect for startups</p>
-                        <div class="mt-4">
-                            <p class="text-3xl font-bold">₦350,000</p>
-                            <p class="text-emerald-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦150,000/mo</p>
-                            <p class="text-emerald-100 text-sm">Monthly Retainer</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-emerald-500 mt-1"></i>
-                                <span class="text-gray-700">Professional branding</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-emerald-500 mt-1"></i>
-                                <span class="text-gray-700">Business website (up to 3 pages)</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-emerald-500 mt-1"></i>
-                                <span class="text-gray-700">Social media setup (2 platforms)</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-emerald-500 mt-1"></i>
-                                <span class="text-gray-700">4 videos, 10 graphics, 10 posts/mo</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-emerald-500 mt-1"></i>
-                                <span class="text-gray-700">Starter digital marketing</span>
-                            </li>
-                        </ul>
-                        <button class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Standard Package -->
-                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden transform scale-105 border-4 border-blue-500 relative">
-                    <div class="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 text-sm font-semibold rounded-bl-lg">
-                        POPULAR
-                    </div>
-                    <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-6 text-white">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fas fa-star text-2xl"></i>
-                            <h3 class="text-2xl font-bold">Standard Pack</h3>
-                        </div>
-                        <p class="text-blue-100 text-sm">Ideal for growing businesses</p>
-                        <div class="mt-4">
-                            <p class="text-3xl font-bold">₦650,000</p>
-                            <p class="text-blue-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦250,000/mo</p>
-                            <p class="text-blue-100 text-sm">Monthly Retainer</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-blue-500 mt-1"></i>
-                                <span class="text-gray-700">Full brand kit & strategy</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-blue-500 mt-1"></i>
-                                <span class="text-gray-700">Multi-page website + sales funnel</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-blue-500 mt-1"></i>
-                                <span class="text-gray-700">Social media (4 platforms)</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-blue-500 mt-1"></i>
-                                <span class="text-gray-700">12 videos, 20 graphics, 20 posts/mo</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-blue-500 mt-1"></i>
-                                <span class="text-gray-700">Advanced digital marketing & ads</span>
-                            </li>
-                        </ul>
-                        <button class="w-full mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Premium Package -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                    <div class="bg-gradient-to-br from-purple-500 to-purple-700 p-6 text-white">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fas fa-crown text-2xl"></i>
-                            <h3 class="text-2xl font-bold">Premium Pack</h3>
-                        </div>
-                        <p class="text-purple-100 text-sm">For established brands</p>
-                        <div class="mt-4">
-                            <p class="text-3xl font-bold">₦1,200,000+</p>
-                            <p class="text-purple-100 text-sm">Setup Fee</p>
-                            <p class="text-2xl font-semibold mt-2">₦350,000+/mo</p>
-                            <p class="text-purple-100 text-sm">Monthly Retainer</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">Enterprise branding & strategy</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">Custom e-commerce platform</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">All platform social media</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">Unlimited content creation</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">Mobile app & custom software</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-check text-purple-500 mt-1"></i>
-                                <span class="text-gray-700">Multi-channel marketing automation</span>
-                            </li>
-                        </ul>
-                        <button class="w-full mt-6 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg transition">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Package Note -->
-            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-lg mt-8">
-                <p class="text-gray-700 text-center">
-                    <i class="fas fa-gift text-emerald-500 mr-2"></i>
-                    Every package includes a <span class="font-bold">one-time setup</span>, <span class="font-bold">one month free service</span>, and an ongoing retainer for management & growth.
-                </p>
-            </div>
-        </div>
-
-        <!-- Why Choose Us Section -->
-        
-        <div class="max-w-6xl mx-auto mb-20">
-  <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl p-8 md:p-12 text-white">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">
-      Why Choose Marvab Technology?
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="flex items-start gap-4">
-        <div class="flex-shrink-0">
-          <i class="fas fa-check-circle text-purple-500 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg mb-2">All-in-One Solution</h3>
-          <p class="text-gray-300">Everything your business needs in one place.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4">
-        <div class="flex-shrink-0">
-          <i class="fas fa-check-circle text-purple-500 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg mb-2">Tailored Packages</h3>
-          <p class="text-gray-300">Whether small, growing, or enterprise, we've got you covered.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4">
-        <div class="flex-shrink-0">
-          <i class="fas fa-check-circle text-purple-500 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg mb-2">Creative + Technical Expertise</h3>
-          <p class="text-gray-300">A team skilled in design, marketing, and technology.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4">
-        <div class="flex-shrink-0">
-          <i class="fas fa-check-circle text-purple-500 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg mb-2">Long-Term Growth Focus</h3>
-          <p class="text-gray-300">We don't just set you up, we stay with you to ensure success.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4 md:col-span-2">
-        <div class="flex-shrink-0">
-          <i class="fas fa-check-circle text-purple-500 text-2xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg mb-2">Premium Quality</h3>
-          <p class="text-gray-300">We build systems designed to compete at the highest level.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-        </div>
-
-
-  
-   <!-- Why Work With Us Section -->
-
-   <!-- <section class="max-w-7xl mx-auto px-6 sm:px-10 py-16">
-    <h2 class="text-2xl sm:text-3xl font-light text-white max-w-5xl mx-auto mb-6 text-center">
-     Why Work With Us
-    </h2>
-    <p class="max-w-3xl mx-auto text-[9px] text-white/70 font-light mb-10 text-center">
+<!-- ===================== CONTACT / NEXT STEPS ===================== -->
+<section class="dark-section py-20 px-6 md:px-16" id="contact">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-blue-400 text-sm uppercase tracking-widest mb-3 font-medium">Next Steps</p>
+    <h2 class="text-3xl md:text-4xl font-display font-700 text-white mb-4">Ready to Build Your Digital Venture?</h2>
+    <p class="text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+      Three simple steps: <strong class="text-white">Accept</strong> — confirm this proposal. <strong class="text-white">Kickoff</strong> — schedule your project meeting. <strong class="text-white">Execute</strong> — we deliver your complete digital infrastructure in 12 weeks.
     </p>
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-     <div>
-      <h3 class="text-lg font-semibold mb-2 text-[#8a8aff]">
-       Expertise
-      </h3>
-      <p class="text-black/70 text-xs font-light leading-relaxed">
-        Proven track record 
-        of delivering 
-        high-quality venture 
-        and product designs</p>
-     </div>
 
-     <div>
-      <h3 class="text-lg font-semibold mb-2 text-[#8a8aff]">
-       Customer Focus
-      </h3>
-      <p class="text-white/70 text-xs font-light leading-relaxed">
-        Tailored solutions 
-        to meet your unique 
-        business needs</p>
-     </div>
-     
-
-     <div>
-      <h3 class="text-lg font-semibold mb-2 text-[#8a8aff]">
-        End-to-End Support
-      </h3>
-      <p class="text-white/70 text-xs font-light leading-relaxed">
-        Comprehensive 
-        services from 
-        concept to execution      </p>
-     </div>
+    <div class="bg-white/5 border border-white/10 rounded-3xl p-8 max-w-xl mx-auto">
+      <h3 class="text-xl font-display font-700 text-white mb-6">Get in Touch</h3>
+      <div class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors">
+        <input type="email" placeholder="Email Address" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors">
+        <input type="text" placeholder="Project Type (Website, App, GTM...)" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors">
+        <textarea placeholder="Tell us about your vision..." rows="4" class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+        <button class="w-full btn-primary text-white font-semibold py-4 rounded-xl shadow-lg text-base">
+          Send Message <i class="fas fa-paper-plane ml-2"></i>
+        </button>
+      </div>
     </div>
-    
-   </section> -->
+  </div>
+</section>
 
 
- <!-- Clients Section -->
-   <section class="max-w-7xl mx-auto px-6 sm:px-10 py-20">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-     <!-- Text content -->
-     <div class="text-center md:text-left">
-      <h2 class="text-3xl sm:text-4xl font-bold text-black mb-6 max-w-lg mx-auto md:mx-0">
-       Our Clients are everywhere around the globe
-      </h2>
-     
-      <div class="text-black/80 text-base max-w-md mx-auto md:mx-0 grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="flex items-center gap-2">
-          <img src="images/us.png" alt="US Flag" class="h-6 w-6 object-contain">
-          <span>US</span>
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-black py-12 px-6 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl btn-primary flex items-center justify-center"><i class="fas fa-code text-white"></i></div>
+          <span class="text-xl font-display font-700 text-white">Tech<span class="gradient-text">Labs</span></span>
         </div>
-        <div class="flex items-center gap-2">
-          <img src="images/uk.png" alt="UK Flag" class="h-6 w-6 object-contain">
-          <span>UK</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <img src="images/euro.png" alt="EU Flag" class="h-6 w-6 object-contain">
-          <span>Europe</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <img src="images/canada.png" alt="Canada Flag" class="h-6 w-6 object-contain">
-          <span>Canada</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <img src="images/asian.png" alt="Asia Globe" class="h-6 w-6 object-contain">
-          <span>Asia</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <img src="images/niger.png" alt="Africa Flag" class="h-6 w-6 object-contain">
-          <span>Africa</span>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-xs">Transforming ideas into impactful ventures. From idea validation to launch — we build the digital infrastructure your business deserves.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-twitter text-white text-sm"></i></a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-blue-800 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-linkedin text-white text-sm"></i></a>
+          <a href="#" class="w-9 h-9 bg-white/10 hover:bg-purple-600 rounded-xl flex items-center justify-center transition-colors"><i class="fab fa-instagram text-white text-sm"></i></a>
         </div>
       </div>
-      
-     </div>
-
-     <!-- Image placeholder -->
-     <div class="flex justify-center md:justify-end">
-      <img alt="World map with client locations highlighted" class="rounded-lg shadow-lg max-w-full h-auto w-[320px]" height="240" src="https://storage.googleapis.com/a1aa/image/0fc85443-4734-4478-8e98-11497d89f7f6.jpg" width="320"/>
-     </div>
-    </div>
-   </section>
-
-
-   
-  <!-- Team Members Section -->
-  <section class="max-w-7xl mx-auto px-6 sm:px-10 py-16">
-   <h2 class="text-2xl sm:text-3xl font-semibold text-black max-w-5xl mx-auto mb-6 text-center">
-    Meet Our Team
-   </h2>
-   <p class="max-w-3xl mx-auto text-[9px] text-black/70 font-semibold mb-10 text-center">
-    Our dedicated team members who drive our success and innovation.
-   </p>
-   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
-    <!-- Team member 1 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col items-center text-center space-y-4">
-     <img alt="Photo of team member John Doe, a man with short hair and glasses, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/PSF-8029.jpg" width="112"/>
-     <h4 class="text-white font-semibold text-lg">
-      Debby simon
-     </h4>
-     <p class="text-white/70 text-xs font-light">
-      social media mananager 
-     </p>
-     <p class="text-white/70 text-[9px] font-light leading-tight max-w-xs">
-      <!-- Ema leads the company with a vision for innovation and excellence. -->
-     </p>
-    </div>
-    <!-- Team member 2 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col items-center text-center space-y-4">
-     <img alt="Photo of team member Jane Smith, a woman with long hair, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/Sir Marv (2) (7).jpg" width="112"/>
-     <h4 class="text-white font-semibold text-lg">
-      Marvellous itai
-     </h4>
-     <p class="text-white/70 text-xs font-light">
-      Chief Technology Officer (CTO)
-     </p>
-     <p class="text-white/70 text-[9px] font-light leading-tight max-w-xs">
-      <!-- Jane crafts beautiful and user-friendly designs that delight our clients. -->
-     </p>
-    </div>
-    <!-- Team member 3 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col items-center text-center space-y-4">
-     <img alt="Photo of team member Mike Johnson, a man with short hair and beard, smiling" class="w-28 h-28 rounded-full object-cover" height="112" src="images/promise.png" width="112"/>
-     <h4 class="text-white font-semibold text-lg">
-      Promise Akobundu
-     </h4>
-     <p class="text-white/70 text-xs font-light">
-      Head of marketing 
-     </p>
-     <p class="text-white/70 text-[9px] font-light leading-tight max-w-xs">
-      <!-- Mike builds robust and scalable web solutions for our clients. -->
-     </p>
-    </div>
-   </div>
-  </section>
-
-
-
-  
-  <!-- What they say about us Section -->
-  <section class="max-w-7xl mx-auto px-6 sm:px-10 py-16">
-   <h2 class="text-2xl sm:text-3xl font-semibold text-black max-w-5xl pl-4 mb-6">
-  Feedback from our amazing customer
-</h2>
-
-
-   <!-- <p class="max-w-3xl mx-auto text-[9px] text-white/70 font-light mb-10">
-    Work in the IT field includes Web Design, UI/UX Design, Branding and
-      Shopify Development
-   </p> -->
-
-
-
-   <!-- Testimonials grid -->
-   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Testimonial 1 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Ngaputra, a round avatar with purple background and white initials NG" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/9bfaf8a6-ceac-4d1e-554f-ff93c00b13a5.jpg" width="40"/>
       <div>
-       <p class="text-white font-semibold text-sm">
-        Chinedu Okafor
-       </p>
-       <p class="text-white/70 text-xs font-light">
-        Operations Manager       </p>
+        <h4 class="text-white font-display font-700 mb-4">Services</h4>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><a href="#services" class="hover:text-blue-400 transition-colors">Web Development</a></li>
+          <li><a href="#services" class="hover:text-blue-400 transition-colors">Mobile Apps</a></li>
+          <li><a href="#services" class="hover:text-blue-400 transition-colors">UI/UX Design</a></li>
+          <li><a href="#services" class="hover:text-blue-400 transition-colors">Branding</a></li>
+          <li><a href="#services" class="hover:text-blue-400 transition-colors">GTM Strategy</a></li>
+        </ul>
       </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      Working with Marvab Tech has been a game changer for our logistics operations. Their team built a custom software that helped us track deliveries in real time, cutting errors by over 40%. They listened carefully and delivered exactly what we neede
-     </p>
-    </div>
-    <!-- Testimonial 2 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Alex punky, a round avatar with purple background and white initials AP" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/fa6226e3-dc17-475a-2381-9a1376090d1c.jpg" width="40"/>
       <div>
-       <p class="text-white font-semibold text-sm">
-        Amara Umeh       </p>
-       <p class="text-white/70 text-xs font-light">
-        Retail Store Owner       </p>
+        <h4 class="text-white font-display font-700 mb-4">Company</h4>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><a href="about.html" class="hover:text-blue-400 transition-colors">About Us</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Portfolio</a></li>
+          <li><a href="#pricing" class="hover:text-blue-400 transition-colors">Pricing</a></li>
+          <li><a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a></li>
+        </ul>
       </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      As a small business owner, finding affordable and reliable tech partners has always been tough  until I found Marvab Tech. Their customer support is top-notch, and the software they developed for our inventory management has been a blessing
-     </p>
     </div>
-    <!-- Testimonial 3 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Christina alexy, a round avatar with purple background and white initials CA" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/4313a786-efcc-4727-7d20-456b81826095.jpg" width="40"/>
-      <div>
-       <p class="text-white font-semibold text-sm">
-        Emily Carter       </p>
-       <p class="text-white/70 text-xs font-light">
-        Sales Director        </p>
-      </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      Marvab Tech understood our vision right from the first meeting. The CRM solution they built has improved our client management and communication by leaps and bounds. I love their attention to detail and professionalism
-     </p>
+    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm">© 2025 Tech Labs. All rights reserved.</p>
+      <p class="text-gray-500 text-sm">Starting from <span class="gradient-text font-semibold">$2,000 USD</span> — no hidden fees.</p>
     </div>
-
-    
-    <!-- Testimonial 4 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Samuel Afroy, a round avatar with purple background and white initials SA" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/0e67613c-a384-4164-a84f-b3fec7042c82.jpg" width="40"/>
-      <div>
-       <p class="text-white font-semibold text-sm">
-        Ravi Sharma       </p>
-       <p class="text-white/70 text-xs font-light">
-        CEO of FastBite        </p>
-      </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      We needed a mobile app urgently for our food delivery service, and Marvab Tech delivered ahead of schedule without compromising quality. Their team was very easy to work with, and the app has received fantastic feedback from our users
-     </p>
-    </div>
-    <!-- Testimonial 5 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Purwa Adi Triwigkiningsih, a round avatar with purple background and white initials PAT" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/e0c34221-65ac-4f6c-e458-4f6971b324ce.jpg" width="40"/>
-      <div>
-       <p class="text-white font-semibold text-sm">
-        Tolu Ogunleye,       </p>
-       <p class="text-white/70 text-xs font-light">
-        Digital Marketing Manager       </p>
-      </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      The website redesign Marvab Tech did for us exceeded all expectations. The new design has boosted our online engagement and made it easier for customers to navigate our services. They're the real deal when it comes to user-friendly tech solutions
-     </p>
-    </div>
-    <!-- Testimonial 6 -->
-    <div class="bg-gradient-to-br from-[#1f1f1f] to-[#3a3a3a] rounded-xl p-6 flex flex-col space-y-3">
-     <div class="flex items-center space-x-3">
-      <img alt="Profile picture of Rizwan Gunanjini, a round avatar with purple background and white initials RG" class="w-10 h-10 rounded-full object-cover" height="40" src="https://storage.googleapis.com/a1aa/image/ae3c2c10-f4aa-4eaf-a47f-22182fb2bf29.jpg" width="40"/>
-      <div>
-       <p class="text-white font-semibold text-sm">
-        Tan king    </p>
-       <p class="text-white/70 text-xs font-light">
-        IT Manager</p>
-      </div>
-      <i class="fas fa-quote-right ml-auto text-white/50 text-lg">
-      </i>
-     </div>
-     <p class="text-white/70 text-xs font-light leading-tight">
-      Partnering with Marvab Tech was one of the best decisions we've made this year. They combined technical expertise with creative ideas, delivering a software solution that’s both powerful and easy for our team to use
-     </p>
-    </div>
-   </div>
-  </section>
-
-   <!-- Our Promise Section -->
-        <div class="max-w-4xl mx-auto mb-20">
-            <div class="bg-gradient-to-r from-emerald-500 to-blue-500 rounded-2xl shadow-2xl p-8 md:p-12 text-white text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Promise</h2>
-                <p class="text-lg md:text-xl leading-relaxed">
-                    When you work with Marvab Technology, you're not just buying services — you're investing in a digital foundation that will keep working for your business long-term. We partner with you to ensure that your brand is not only visible but also profitable.
-                </p>
-<a
-  href="contact.html"
-  class="mt-6 inline-flex items-center justify-center
-         bg-white text-gray-900 font-bold
-         px-10 py-4 rounded-xl
-         shadow-lg
-         transition-all duration-300
-         hover:bg-gray-100 hover:scale-105"
->
-  Start Your Journey Today
-</a>
+  </div>
+</footer>
 
 
-            </div>
-        </div>
-    </div>
+<script>
+  // Mobile menu
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  const closeSidebarBtn = document.getElementById('close-sidebar');
 
+  function openSidebar() { mobileSidebar.classList.add('open'); sidebarOverlay.classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeSidebar() { mobileSidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); document.body.style.overflow=''; }
 
-   <!-- Footer Section -->
+  mobileMenuBtn.addEventListener('click', openSidebar);
+  closeSidebarBtn.addEventListener('click', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('#mobile-sidebar nav a').forEach(a => a.addEventListener('click', closeSidebar));
+  window.addEventListener('resize', () => { if(window.innerWidth>=768) closeSidebar(); });
 
-     <div id="footer-container"></div>
+  // Accordion
+  function toggleAcc(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id+'-icon');
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('[id$="-icon"]').forEach(i => i.style.transform='rotate(0deg)');
+    if(!isOpen) {
+      el.classList.add('open');
+      icon.style.transform = 'rotate(180deg)';
+    }
+  }
 
-    
+  // Open first accordion by default
+  document.addEventListener('DOMContentLoaded', () => toggleAcc('acc1'));
+</script>
 
-
-  </body>
-  <script>
-        function toggleAccordion(section) {
-            const content = document.getElementById(section + '-content');
-            const icon = document.getElementById(section + '-icon');
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Set Accelerate as expanded by default
-        document.addEventListener('DOMContentLoaded', function() {
-            const accelerateContent = document.getElementById('accelerate-content');
-            const accelerateIcon = document.getElementById('accelerate-icon');
-            accelerateContent.classList.remove('hidden');
-            accelerateIcon.style.transform = 'rotate(180deg)';
-        });
-
-
-
-
-       // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const closeSidebarBtn = document.getElementById('close-sidebar');
-
-        // Function to open sidebar
-        function openSidebar() {
-            mobileSidebar.classList.add('open');
-            sidebarOverlay.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-
-        // Function to close sidebar
-        function closeSidebar() {
-            mobileSidebar.classList.remove('open');
-            sidebarOverlay.classList.remove('show');
-            document.body.style.overflow = ''; // Restore scrolling
-        }
-
-        // Event listeners
-        mobileMenuBtn.addEventListener('click', openSidebar);
-        closeSidebarBtn.addEventListener('click', closeSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
-
-        // Close sidebar when clicking on navigation links (optional)
-        const sidebarLinks = document.querySelectorAll('#mobile-sidebar nav a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', closeSidebar);
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                closeSidebar();
-            }
-        });
-
-
-        
-
-
-
-  // Load Navigation Bar
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-container').innerHTML = data;
-                initializeMobileMenu();
-            })
-            .catch(error => console.log('Navbar not found'));
-
-        // Load Footer
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.log('Footer not found'));
-
-        // Mobile Menu Functionality
-        function initializeMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeSidebarBtn = document.getElementById('close-sidebar');
-            const sidebar = document.getElementById('mobile-sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    sidebar.classList.add('active');
-                    overlay.classList.add('active');
-                });
-            }
-
-            if (closeSidebarBtn) {
-                closeSidebarBtn.addEventListener('click', () => {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                });
-            }
-
-            if (overlay) {
-                overlay.addEventListener('click', () => {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                });
-            }
-        }
-
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Here you would normally send the form data to your server
-            // For now, we'll just show a success message
-            
-            const form = e.target;
-            const successMessage = document.getElementById('successMessage');
-            
-            // Show success message
-            successMessage.classList.remove('hidden');
-            
-            // Reset form
-            form.reset();
-            
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.add('hidden');
-            }, 5000);
-        });
-
-        // FAQ Accordion Functionality
-        const faqButtons = document.querySelectorAll('.faq-button');
-        
-        faqButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                
-                // Toggle current FAQ
-                content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-180');
-                
-                // Close other FAQs (optional - comment out for multiple open)
-                faqButtons.forEach(otherButton => {
-                    if (otherButton !== button) {
-                        const otherContent = otherButton.nextElementSibling;
-                        const otherIcon = otherButton.querySelector('i');
-                        otherContent.classList.add('hidden');
-                        otherIcon.classList.remove('rotate-180');
-                    }
-                });
-            });
-        });
-
-
-
-
-
-
-    </script>
-
+</body>
 </html>
